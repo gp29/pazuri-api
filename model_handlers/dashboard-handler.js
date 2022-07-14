@@ -7,18 +7,28 @@ const query = require('./../utils/query-creator');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const _ = require('underscore');
+const moment = require('moment');
 const timeZone = require('moment-timezone');
-const LD = require('lodash');
-const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 const getStatistics = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
-            let customers = await query.countRecord(dbConstants.dbSchema.customers, {});
-            let providers = await query.countRecord(dbConstants.dbSchema.providers, {});
-            let vehicles = await query.countRecord(dbConstants.dbSchema.vehicles, {});
-            let jobs = await query.countRecord(dbConstants.dbSchema.jobs, {});
-            resolve({customers, providers, vehicles, jobs})
+            let total_users = await query.countRecord(dbConstants.dbSchema.users, {});
+            let total_compliances = await query.countRecord(dbConstants.dbSchema.compliances, {});
+
+            // FOR THIS MONTH COMPLIANCES
+            let start = moment().startOf('month').toDate();
+            start = moment(start).format('YYYY-MM-DD')
+            let end = moment().endOf('month').toDate();
+            end = moment(end).format('YYYY-MM-DD')
+            let matchColumn = {
+                created_at: {
+                    $lte: new Date(end + 'T23:59:59.000Z'),
+                    $gte: new Date(start + 'T00:00:00.000Z')
+                }
+            }
+            let total_compliances_this_month = await query.countRecord(dbConstants.dbSchema.compliances, matchColumn);
+            resolve({total_users, total_compliances, total_amount_this_month:0, total_compliances_this_month})
             return;
             resolve(response);
             return;
@@ -29,57 +39,6 @@ const getStatistics = async(requestParam) => {
     })
 };
 
-const graph = async(requestParam) => {
-    return new Promise(async(resolve, reject) => {
-        try {
-            let year = new Date().getFullYear()
-            let promise = [];
-            for (let x in monthName) {
-                promise.push(await overAllCountJobs(monthName[x], x, year))
-            }
-            Promise.all(promise)
-            .then(async result => {
-                resolve(result);
-                return;
-            });
-        } catch (error) {
-            console.log(error)
-            reject(error)
-            return
-        }
-    })
-};
-
-const overAllCountJobs = (month, index, year) => {
-    return new Promise(async(resolve, reject) => {
-        try {
-            let date = new Date(),
-            y = year,
-            m = parseInt(index);
-            let firstDay = new Date(y, m, 1);
-            firstDay.setHours(0, 0, 0, 0);
-            let lastDay = new Date(y, m + 1, 0);
-            lastDay.setHours(23, 59, 59, 999);
-            let compairData = {
-                status: 'delivered',
-                created_at: {
-                    $gte: firstDay,
-                    $lt: lastDay
-                }
-            }
-            let jobs = await query.selectWithAnd(dbConstants.dbSchema.jobs, compairData, { _id: 0, total:1}, { created_at: 1 });
-            let sales = LD.sumBy(jobs, 'total');
-            resolve(parseFloat(parseFloat(sales).toFixed(2)));
-            return;
-        } catch (error) {
-            console.log(error)
-            reject(error)
-            return
-        }
-    })
-};
-
 module.exports = {
-    getStatistics,
-    graph
+    getStatistics
 };
