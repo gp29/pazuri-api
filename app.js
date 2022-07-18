@@ -29,6 +29,7 @@ const price = require('./routes/price');
 const region = require('./routes/region');
 const reminder = require('./routes/reminder');
 const image = require('./routes/image');
+const friend = require('./routes/friend');
 
 //other configurations
 const passport = require('passport');
@@ -67,6 +68,7 @@ app.use('/api/price', price);
 app.use('/api/region', region);
 app.use('/api/reminder', reminder);
 app.use('/api/image', image);
+app.use('/api/friend', friend);
 
 app.use(upload());
 

@@ -441,6 +441,208 @@
             }
         },
 
+        "/friend/send-request": {
+            "post": {
+                "x-controller-name": "FriendController",
+                "x-operation-name": "SendRequest",
+                "tags": ["FriendController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "SendRequest",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "opponent_user_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "FriendController.SendRequest"
+            }
+        },
+        "/friend/requested-list": {
+            "get": {
+                "x-controller-name": "FriendController",
+                "x-operation-name": "RequestedList",
+                "tags": ["FriendController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "RequestedList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "page",
+                    "in": "query",
+                    "schema": {
+                        "type": "number"
+                    }
+                }],
+                "operationId": "FriendController.RequestedList"
+            }
+        },
+        "/friend/requested-action": {
+            "post": {
+                "x-controller-name": "FriendController",
+                "x-operation-name": "RequestedAction",
+                "tags": ["FriendController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "RequestedAction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "request_id": {
+                                        "type": "string"
+                                    },
+                                    "action": {
+                                        "type": "string",
+                                        "enum": ["accept", "reject"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "FriendController.RequestedAction"
+            }
+        },
+        "/friend/friends-list": {
+            "get": {
+                "x-controller-name": "FriendController",
+                "x-operation-name": "FriendsList",
+                "tags": ["FriendController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "FriendsList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "page",
+                    "in": "query",
+                    "schema": {
+                        "type": "number"
+                    }
+                }],
+                "operationId": "FriendController.FriendsList"
+            }
+        },
+        "/friend/remove-friend": {
+            "post": {
+                "x-controller-name": "FriendController",
+                "x-operation-name": "RemoveFriend",
+                "tags": ["FriendController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "RemoveFriend",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "opponent_user_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "FriendController.RemoveFriend"
+            }
+        },
+
         "/user/user-list": {
             "get": {
                 "x-controller-name": "UserController",
