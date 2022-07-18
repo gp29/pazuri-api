@@ -160,7 +160,7 @@ const update = async(requestParam, req) => {
                     Key: `pazuri/users/${response.profile_photo}`
                 }];
                 await imgHandler.deleteImage(objects, config.aws.bucketName)
-                requestParam.profile_photo = await imgHandler.uploadImage(req.files.profile_photo, config.aws.s3.customerBucket)
+                requestParam.profile_photo = await imgHandler.uploadImage(req.files.profile_photo, config.aws.s3.userBucket)
             }
             await query.updateSingle(dbConstants.dbSchema.users, requestParam, {user_id: requestParam.user_id});
             resolve(profile({user_id: requestParam.user_id, time_zone: requestParam.time_zone}));
