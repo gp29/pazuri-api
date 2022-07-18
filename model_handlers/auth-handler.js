@@ -10,6 +10,7 @@ const responseCodes = require('./../utils/response-codes');
 const passwordHandler = require('./../utils/password-handler');
 const imgHandler = require('./../model_handlers/image-handler');
 const encryptDecryptHandler = require('./../model_handlers/encrypt-decrypt-handler');
+const timeZone = require('moment-timezone');
 
 const login = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -190,9 +191,11 @@ const signin = async(requestParam) => {
                 reject(errors(labels.LBL_INVALID_PWD[config.default_language], responseCodes.InvalidOTP));
                 return;
             }
+            let updateColumn = {last_login: new Date()}
             if(requestParam.device_token){
-                await query.updateSingle(dbConstants.dbSchema.users, {device_token: requestParam.device_token}, {user_id: response.user_id});
+                updateColumn.device_token = requestParam.updateColumn
             }
+            await query.updateSingle(dbConstants.dbSchema.users, updateColumn, {user_id: response.user_id});
             resolve(profile({user_id: response.user_id}));
             return;
         } catch (error) {
@@ -215,6 +218,7 @@ const profile = async(requestParam) => {
                 reject(errors(labels.LBL_ACCOUNT_INACTIVE[config.default_language], responseCodes.NotActive));
                 return;
             }
+            response.last_login = timeZone(new Date(response.last_login)).tz(requestParam.time_zone).format('DD MMM HH:mm')
             response.region_name = ''
             let region = await query.selectWithAndOne(dbConstants.dbSchema.regions, {region_id:response.region_id}, { _id:0, name: 1} );
             if(region){

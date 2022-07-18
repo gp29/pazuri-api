@@ -79,6 +79,10 @@ var userSchema = new Schema({
             default: [0, 0]
         }
     },
+    last_login: {
+        type: Date,
+        default: Date.now
+    },
     created_at: {
         type: Date,
         default: Date.now
