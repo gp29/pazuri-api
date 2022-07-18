@@ -207,6 +207,11 @@ const profile = async(requestParam) => {
                 reject(errors(labels.LBL_ACCOUNT_INACTIVE[config.default_language], responseCodes.NotActive));
                 return;
             }
+            response.region_name = ''
+            let region = await query.selectWithAndOne(dbConstants.dbSchema.regions, {region_id:response.region_id}, { _id:0, name: 1} );
+            if(region){
+                response.region_name = region.name
+            }
             response.profile_photo = response.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${response.profile_photo}`}) : ''
             resolve(response);
             return;

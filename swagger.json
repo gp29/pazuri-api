@@ -439,6 +439,38 @@
                 "parameters": [],
                 "operationId": "RegionController.List"
             }
+        },
+
+        "/user/user-list": {
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "UserList",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "UserList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "UserController.UserList"
+            }
         }
     },
     "components": {},

@@ -220,11 +220,37 @@ const changePassword = async(requestParam) => {
     })
 };
 
+// API
+const userList = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.users, {status:'active'}, { _id:0, user_id: 1, name:1, profile_photo:1, username:1} );
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.profile_photo = elem.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.profile_photo}`}) : ''
+            }))
+            resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
     create,
     update,
     action,
-    changePassword
+    changePassword,
+
+    //API
+    userList,
 };
