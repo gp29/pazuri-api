@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const moment = require('moment');
+const idGenerator = require('./../utils/id-generator');
 
 var friendSchema = new Schema({
     friend_id: {
