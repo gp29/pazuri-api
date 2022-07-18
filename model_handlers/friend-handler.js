@@ -76,6 +76,7 @@ const requestedList = async(requestParam) => {
                     request_id: 1,
                     user_id: "$user_id",
                     name: "$userDetails.name",
+                    username: "$userDetails.username",
                     profile_photo: "$userDetails.profile_photo",
                 }
             }];
@@ -185,6 +186,7 @@ const friendsList = async(requestParam) => {
                     friend_id: 1,
                     user_id: "$opponent_user_id",
                     name: "$userDetails.name",
+                    username: "$userDetails.username",
                     profile_photo: "$userDetails.profile_photo",
                 }
             }];
@@ -239,6 +241,7 @@ const locationList = async(requestParam) => {
                     friend_id: 1,
                     user_id: "$opponent_user_id",
                     name: "$userDetails.name",
+                    username: "$userDetails.username",
                     profile_photo: "$userDetails.profile_photo",
                     latitude: "$userDetails.latitude",
                     longitude: "$userDetails.longitude",
