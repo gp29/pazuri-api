@@ -31,7 +31,7 @@ router.post('/signup', async(req, res) => {
             jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
             return
         }
-        let response = await authHandler.signup(req.body);
+        let response = await authHandler.signup(req.body, req);
         jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
     } catch (error) {
         jsonResponse(res, error.code, error, null);
@@ -44,7 +44,7 @@ router.post('/update', async(req, res) => {
             jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
             return
         }
-        let response = await authHandler.update(req.body);
+        let response = await authHandler.update(req.body, req);
         jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
     } catch (error) {
         jsonResponse(res, error.code, error, null);
