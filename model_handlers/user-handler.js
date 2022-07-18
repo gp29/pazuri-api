@@ -229,7 +229,16 @@ const userList = async(requestParam) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let lists = await query.selectWithAnd(dbConstants.dbSchema.users, {status:'active', user_id:{$ne: requestParam.user_id}}, { _id:0, user_id: 1, name:1, profile_photo:1, username:1} );
+            let ids = [requestParam.user_id]
+
+            let friends = await query.selectWithAnd(dbConstants.dbSchema.friends, {user_id: requestParam.user_id}, { _id:0, opponent_user_id:1} );
+            ids.push(_.pluck(friends,'opponent_user_id'))
+
+            let friend_reqs = await query.selectWithAnd(dbConstants.dbSchema.friend_requests, {user_id: requestParam.user_id}, { _id:0, opponent_user_id:1} );
+            ids.push(_.pluck(friend_reqs,'opponent_user_id'))
+
+            ids = _.flatten(ids)
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.users, {status:'active', user_id:{$nin: ids}}, { _id:0, user_id: 1, name:1, profile_photo:1, username:1} );
             lists = JSON.parse(JSON.stringify(lists))
             await Promise.all(lists.map(async (elem) => {
                 elem.profile_photo = elem.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.profile_photo}`}) : ''
