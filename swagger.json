@@ -6,11 +6,11 @@
         "description": "Pazuri"
     },
     "paths": {
-        "/rider/signin": {
+        "/auth/signin": {
             "post": {
-                "x-controller-name": "RiderController",
+                "x-controller-name": "AuthController",
                 "x-operation-name": "SignIn",
-                "tags": ["RiderController"],
+                "tags": ["AuthController"],
                 "security": [{
                     "jwt": []
                 }],
@@ -33,6 +33,9 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
                                     "mobile": {
                                         "type": "string"
                                     },
@@ -44,20 +47,126 @@
                         }
                     }
                 },
-                "operationId": "RiderController.SignIn"
+                "operationId": "AuthController.SignIn"
             }
         },
-        "/rider/new-trips": {
-            "get": {
-                "x-controller-name": "RiderController",
-                "x-operation-name": "NewTrips",
-                "tags": ["RiderController"],
+        "/auth/signup": {
+            "post": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "SignUp",
+                "tags": ["AuthController"],
                 "security": [{
                     "jwt": []
                 }],
                 "responses": {
                     "200": {
-                        "description": "NewTrips",
+                        "description": "SignUp",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "region_id": {
+                                        "type": "string"
+                                    },
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "profile_photo": {
+                                        "type": "file"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AuthController.SignUp"
+            }
+        },
+        "/auth/update": {
+            "post": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "UpdateProfile",
+                "tags": ["AuthController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "UpdateProfile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "region_id": {
+                                        "type": "string"
+                                    },
+                                    "profile_photo": {
+                                        "type": "file"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AuthController.UpdateProfile"
+            }
+        },
+        "/auth/get-profile": {
+            "get": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "GetProfile",
+                "tags": ["AuthController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "GetProfile",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -69,19 +178,39 @@
                     }
                 },
                 "parameters": [{
-                    "name": "rider_id",
+                    "name": "user_id",
                     "in": "query",
                     "schema": {
                         "type": "string"
                     }
-                }, {
-                    "name": "page",
-                    "in": "query",
-                    "schema": {
-                        "type": "number"
-                    }
                 }],
-                "operationId": "RiderController.NewTrips"
+                "operationId": "AuthController.GetProfile"
+            }
+        },
+
+        "/region/region-list": {
+            "get": {
+                "x-controller-name": "RegionController",
+                "x-operation-name": "List",
+                "tags": ["RegionController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "operationId": "RegionController.List"
             }
         }
     },

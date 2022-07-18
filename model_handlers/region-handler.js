@@ -17,7 +17,10 @@ const get = async(requestParam) => {
             if(requestParam.region_id){
                 columnValue.region_id = requestParam.region_id
             }
-            let response = await query.selectWithAnd(dbConstants.dbSchema.regions, columnValue, { _id: 0}, { created_at: 1 });
+            if(requestParam.status){
+                columnValue.status = requestParam.status
+            }
+            let response = await query.selectWithAnd(dbConstants.dbSchema.regions, columnValue, { _id: 0, region_id:1, name:1, status:1}, { created_at: -1 });
             if(requestParam.region_id){
                 response = response[0]
                 resolve(response);

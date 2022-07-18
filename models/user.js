@@ -29,6 +29,14 @@ var userSchema = new Schema({
         type: String,
         default:''
     },
+    username: {
+        type: String,
+        default:''
+    },
+    region_id: {
+        type: String,
+        default:''
+    },
     profile_photo: {
         type: String,
         default:''
