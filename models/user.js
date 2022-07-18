@@ -57,6 +57,10 @@ var userSchema = new Schema({
         type: String,
         default:''
     },
+    is_hide_yourself: {
+        type: Boolean,
+        default: false
+    },
     latitude: {
         type: Number,
         default: 0

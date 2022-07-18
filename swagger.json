@@ -154,6 +154,9 @@
                                     "about": {
                                         "type": "string"
                                     },
+                                    "is_hide_yourself": {
+                                        "type": "string"
+                                    },
                                     "profile_photo": {
                                         "type": "file"
                                     }

@@ -131,11 +131,16 @@ const update = async(requestParam, req) => {
             if(requestParam.email) delete requestParam.email
             if(requestParam.mobile) delete requestParam.mobile
             if(requestParam.mobile_country_code) delete requestParam.mobile_country_code
+
             if(requestParam.user_id){
                 requestParam.user_id = await encryptDecryptHandler.decryptString(requestParam.user_id)
             }
             if(requestParam.name){
                 requestParam.name = await encryptDecryptHandler.decryptString(requestParam.name)
+            }
+            if(requestParam.is_hide_yourself){
+                requestParam.is_hide_yourself = await encryptDecryptHandler.decryptString(requestParam.is_hide_yourself)
+                requestParam.is_hide_yourself = requestParam.is_hide_yourself == 'true' ? true : false
             }
             if(requestParam.region_id){
                 requestParam.region_id = await encryptDecryptHandler.decryptString(requestParam.region_id)
