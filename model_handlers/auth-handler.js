@@ -128,6 +128,9 @@ const signup = async(requestParam, req) => {
 const update = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
+            if(requestParam.email) delete requestParam.email
+            if(requestParam.mobile) delete requestParam.mobile
+            if(requestParam.mobile_country_code) delete requestParam.mobile_country_code
             if(requestParam.user_id){
                 requestParam.user_id = await encryptDecryptHandler.decryptString(requestParam.user_id)
             }
