@@ -74,6 +74,24 @@ router.get('/friends-list', async(req, res) => {
     }
 });
 
+router.get('/location-list', async(req, res) => {
+    try {
+        req.query = await encryptDecryptHandler.decryptJson(req.query.encrypt_data)
+        req.query.time_zone = config.time_zone
+        if(req.headers.time_zone){
+            req.query.time_zone = req.headers.time_zone
+        }
+        if (!req.query.user_id || !req.query.page) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await friendHandler.locationList(req.query);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
 router.post('/remove-friend', async(req, res) => {
     try {
         req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
