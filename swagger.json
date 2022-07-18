@@ -187,6 +187,135 @@
                 "operationId": "AuthController.GetProfile"
             }
         },
+        "/auth/forgot": {
+            "post": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "ForgotPassword",
+                "tags": ["AuthController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "ForgotPassword",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AuthController.ForgotPassword"
+            }
+        },
+        "/auth/verify-otp": {
+            "post": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "VerifyOtp",
+                "tags": ["AuthController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "VerifyOtp",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "otp": {
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AuthController.VerifyOtp"
+            }
+        },
+        "/auth/change-password": {
+            "post": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "ChangePassword",
+                "tags": ["AuthController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "ChangePassword",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AuthController.ChangePassword"
+            }
+        },
 
         "/region/region-list": {
             "get": {

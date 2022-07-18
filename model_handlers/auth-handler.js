@@ -209,6 +209,72 @@ const profile = async(requestParam) => {
     })
 };
 
+const forgot = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {mobile_country_code:requestParam.mobile_country_code, mobile: requestParam.mobile}, { _id:0, user_id: 1, status:1} );
+            if(!response){
+                reject(errors(labels.LBL_MOBILE_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            response = JSON.parse(JSON.stringify(response))
+            if(response.status == 'inactive'){
+                reject(errors(labels.LBL_ACCOUNT_INACTIVE[config.default_language], responseCodes.NotActive));
+                return;
+            }
+            let otp = Math.floor(1000 + Math.random() * 9000)
+            await query.updateSingle(dbConstants.dbSchema.users, {otp}, {user_id: response.user_id});
+            resolve({otp});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const verifyOtp = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {mobile_country_code:requestParam.mobile_country_code, mobile: requestParam.mobile}, { _id:0, user_id: 1, otp:1} );
+            if(!response){
+                reject(errors(labels.LBL_MOBILE_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            response = JSON.parse(JSON.stringify(response))
+            if(response.otp != requestParam.otp){
+                reject(errors(labels.LBL_INVALID_OTP[config.default_language], responseCodes.NotActive));
+                return;
+            }
+            await query.updateSingle(dbConstants.dbSchema.users, {otp:''}, {user_id: response.user_id});
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const changePassword = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {mobile_country_code:requestParam.mobile_country_code, mobile: requestParam.mobile}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_MOBILE_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let password = await passwordHandler.encrypt(requestParam.password.toString());
+            await query.updateSingle(dbConstants.dbSchema.users, {password}, {user_id: response.user_id});
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     login,
     logout,
@@ -218,4 +284,7 @@ module.exports = {
     update,
     signin,
     profile,
+    forgot,
+    verifyOtp,
+    changePassword,
 };

@@ -79,4 +79,46 @@ router.post('/signin', async(req, res) => {
     }
 });
 
+router.post('/forgot', async(req, res) => {
+    try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
+        if (!req.body.mobile_country_code || !req.body.mobile) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await authHandler.forgot(req.body);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
+router.post('/verify-otp', async(req, res) => {
+    try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
+        if (!req.body.mobile_country_code || !req.body.mobile || !req.body.otp) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await authHandler.verifyOtp(req.body);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
+router.post('/change-password', async(req, res) => {
+    try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
+        if (!req.body.mobile_country_code || !req.body.mobile || !req.body.password) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await authHandler.changePassword(req.body);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
 module.exports = router;

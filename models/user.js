@@ -49,6 +49,10 @@ var userSchema = new Schema({
         type: String,
         default:''
     },
+    otp: {
+        type: String,
+        default:''
+    },
     created_at: {
         type: Date,
         default: Date.now
