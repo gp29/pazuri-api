@@ -267,6 +267,15 @@ const details = async(requestParam) => {
             }
             user = JSON.parse(JSON.stringify(user))
             user.profile_photo = user.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${user.profile_photo}`}) : ''
+            
+            user.is_requested = false
+            let request = await query.selectWithAndOne(dbConstants.dbSchema.friend_requests, {user_id: requestParam.user_id, opponent_user_id: requestParam.opponent_user_id}, {_id: 0, request_id: 1});
+            if(request) user.is_requested = true
+
+            user.is_friend = false
+            let friend = await query.selectWithAndOne(dbConstants.dbSchema.friends, {user_id: requestParam.user_id, opponent_user_id: requestParam.opponent_user_id}, {_id: 0, friend_id: 1});
+            if(friend) user.is_friend = true
+
             resolve(user);
             return;
         } catch (error) {
