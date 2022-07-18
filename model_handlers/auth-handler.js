@@ -116,7 +116,7 @@ const signup = async(requestParam, req) => {
             }
             requestParam.password = await passwordHandler.encrypt(requestParam.password.toString());
             let res = await query.insertSingle(dbConstants.dbSchema.users, requestParam);
-            resolve(profile({user_id: res.user_id}));
+            resolve(profile({user_id: res.user_id, time_zone: requestParam.time_zone}));
             return;
         } catch (error) {
             console.log(error)
@@ -163,7 +163,7 @@ const update = async(requestParam, req) => {
                 requestParam.profile_photo = await imgHandler.uploadImage(req.files.profile_photo, config.aws.s3.customerBucket)
             }
             await query.updateSingle(dbConstants.dbSchema.users, requestParam, {user_id: requestParam.user_id});
-            resolve(profile({user_id: requestParam.user_id}));
+            resolve(profile({user_id: requestParam.user_id, time_zone: requestParam.time_zone}));
             return;
         } catch (error) {
             console.log(error)
@@ -196,7 +196,7 @@ const signin = async(requestParam) => {
                 updateColumn.device_token = requestParam.updateColumn
             }
             await query.updateSingle(dbConstants.dbSchema.users, updateColumn, {user_id: response.user_id});
-            resolve(profile({user_id: response.user_id}));
+            resolve(profile({user_id: response.user_id, time_zone: requestParam.time_zone}));
             return;
         } catch (error) {
             reject(error)
