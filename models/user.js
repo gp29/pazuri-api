@@ -47,11 +47,33 @@ var userSchema = new Schema({
     },
     status: {
         type: String,
-        default:''
+        default:'active'
     },
     otp: {
         type: String,
         default:''
+    },
+    about: {
+        type: String,
+        default:''
+    },
+    latitude: {
+        type: Number,
+        default: 0
+    },
+    longitude: {
+        type: Number,
+        default: 0
+    },
+    location: {
+        type: {
+            type: String,
+            default: "Point"
+        },
+        coordinates: {
+            type: [Number],
+            default: [0, 0]
+        }
     },
     created_at: {
         type: Date,
@@ -62,6 +84,8 @@ var userSchema = new Schema({
         default: Date.now
     }
 });
+
+userSchema.index({ location: '2dsphere' });
 
 // // Execute before each user.save() call
 userSchema.pre('save', async function(callback) {

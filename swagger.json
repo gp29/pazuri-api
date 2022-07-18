@@ -41,6 +41,9 @@
                                     },
                                     "password": {
                                         "type": "string"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -98,6 +101,9 @@
                                     "password": {
                                         "type": "string"
                                     },
+                                    "device_token": {
+                                        "type": "string"
+                                    },
                                     "profile_photo": {
                                         "type": "file"
                                     }
@@ -143,6 +149,9 @@
                                         "type": "string"
                                     },
                                     "region_id": {
+                                        "type": "string"
+                                    },
+                                    "about": {
                                         "type": "string"
                                     },
                                     "profile_photo": {
@@ -314,6 +323,95 @@
                     }
                 },
                 "operationId": "AuthController.ChangePassword"
+            }
+        },
+        "/auth/update-latitude-longitude": {
+            "post": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "UpdateLatLng",
+                "tags": ["AuthController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "UpdateLatLng",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "latitude": {
+                                        "type": "number"
+                                    },
+                                    "longitude": {
+                                        "type": "number"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AuthController.UpdateLatLng"
+            }
+        },
+        "/auth/logout-delete": {
+            "post": {
+                "x-controller-name": "AuthController",
+                "x-operation-name": "LogoutDelete",
+                "tags": ["AuthController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "LogoutDelete",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": ["logout", "delete"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "AuthController.LogoutDelete"
             }
         },
 

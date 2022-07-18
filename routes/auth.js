@@ -121,4 +121,32 @@ router.post('/change-password', async(req, res) => {
     }
 });
 
+router.post('/logout-delete', async(req, res) => {
+    try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
+        if (!req.body.user_id || !req.body.type) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await authHandler.logoutDelete(req.body);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
+router.post('/update-latitude-longitude', async(req, res) => {
+    try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
+        if (!req.body.user_id || !req.body.latitude || !req.body.longitude) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await authHandler.updateLatLng(req.body);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
 module.exports = router;

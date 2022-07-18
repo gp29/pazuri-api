@@ -88,6 +88,11 @@ const signup = async(requestParam, req) => {
             }
             if(requestParam.username){
                 requestParam.username = await encryptDecryptHandler.decryptString(requestParam.username)
+                let exists = await query.selectWithAndOne(dbConstants.dbSchema.users, {username: requestParam.username}, { _id: 0, user_id:1}, { created_at: 1 });
+                if(exists){
+                    reject(errors(labels.LBL_USERNAME_ALREADY_EXISTS[config.default_language], responseCodes.ResourceNotFound));
+                    return;
+                }
             }
             requestParam.email = requestParam.email.toLowerCase();
             requestParam.email = requestParam.email.trim();
@@ -131,6 +136,9 @@ const update = async(requestParam, req) => {
             }
             if(requestParam.region_id){
                 requestParam.region_id = await encryptDecryptHandler.decryptString(requestParam.region_id)
+            }
+            if(requestParam.about){
+                requestParam.about = await encryptDecryptHandler.decryptString(requestParam.about)
             }
 
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1, profile_photo:1} );
@@ -189,7 +197,7 @@ const signin = async(requestParam) => {
 const profile = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
-            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1, region_id:1, name:1, username:1, mobile_country_code:1, mobile:1, email:1, profile_photo:1, status:1} );
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1, region_id:1, name:1, username:1, mobile_country_code:1, mobile:1, email:1, profile_photo:1, status:1, about:1} );
             if(!response){
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
@@ -275,6 +283,59 @@ const changePassword = async(requestParam) => {
     })
 };
 
+const updateLatLng = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1, region_id:1, name:1, username:1, mobile_country_code:1, mobile:1, email:1, profile_photo:1, status:1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            requestParam.location = {
+                type: "Point",
+                coordinates: [requestParam.longitude, requestParam.latitude]
+            }
+            await query.updateSingle(dbConstants.dbSchema.users, requestParam, {user_id: response.user_id});
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const logoutDelete = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            if(requestParam.type == 'logout'){
+                await query.updateSingle(dbConstants.dbSchema.users, {device_token:''}, { user_id: requestParam.user_id });
+            }
+            if(requestParam.type == 'delete'){
+                let user = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id: requestParam.user_id}, { _id:0, profile_photo: 1});
+                let objects = []
+                if(user){
+                    if(user.profile_photo != ''){
+                        objects.push({
+                            Key: `pazuri/users/${user.profile_photo}`
+                        })
+                    }
+                    if(objects.length > 0){
+                        await imgHandler.deleteImage(objects, config.aws.bucketName)
+                    }
+                }
+                await query.removeMultiple(dbConstants.dbSchema.users, {user_id: requestParam.user_id})
+            }
+            resolve({})
+            return;
+        } catch (error) {
+            console.log(error)
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     login,
     logout,
@@ -287,4 +348,6 @@ module.exports = {
     forgot,
     verifyOtp,
     changePassword,
+    updateLatLng,
+    logoutDelete,
 };

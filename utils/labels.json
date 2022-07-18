@@ -41,6 +41,9 @@
     "LBL_JOB_NOT_FOUND": {
         "EN": "Job not exists in our system"
     },
+    "LBL_USERNAME_ALREADY_EXISTS": {
+        "EN": "This username already taken by another user."
+    },
     "LBL_DISTANCE_NOT_FOUND": {
         "EN": "Google API key was expired or didn't found distace on addresses."
     }
