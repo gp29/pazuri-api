@@ -9,6 +9,7 @@ const comply = require('./../models/comply');
 const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
+const moment = require('moment');
 const timeZone = require('moment-timezone');
 
 const get = async(requestParam) => {
@@ -196,6 +197,7 @@ const complyList = async(requestParam) => {
             let lists = await query.selectWithAnd(dbConstants.dbSchema.complies, {user_id:requestParam.user_id}, { _id:0, comply_id: 1, compliance_id:1, expiry_date:1, paid_status:1, status:1} );
             lists = JSON.parse(JSON.stringify(lists))
             await Promise.all(lists.map(async (elem) => {
+                elem.expiry_date = moment(elem.expiry_date).format('ll')
                 elem.compliance_name = ''
                 let compliance = await query.selectWithAndOne(dbConstants.dbSchema.compliances, {compliance_id: elem.compliance_id}, { _id: 0, name:1}, { created_at: 1 });
                 if(compliance){
