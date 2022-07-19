@@ -12,6 +12,7 @@ const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
 const imgHandler = require('./../model_handlers/image-handler');
 const passwordHandler = require('./../utils/password-handler');
+const encryptDecryptHandler = require('./../model_handlers/encrypt-decrypt-handler');
 const FCM = require('fcm-push');
 let fcm = new FCM(config.push_key);
 
@@ -292,6 +293,30 @@ const details = async(requestParam) => {
 const createMeetup = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
+             if(requestParam.user_id){
+                requestParam.user_id = await encryptDecryptHandler.decryptString(requestParam.user_id)
+            }
+            if(requestParam.title){
+                requestParam.title = await encryptDecryptHandler.decryptString(requestParam.title)
+            }
+            if(requestParam.description){
+                requestParam.description = await encryptDecryptHandler.decryptString(requestParam.description)
+            }
+            if(requestParam.date){
+                requestParam.date = await encryptDecryptHandler.decryptString(requestParam.date)
+            }
+            if(requestParam.time){
+                requestParam.time = await encryptDecryptHandler.decryptString(requestParam.time)
+            }
+            if(requestParam.duration){
+                requestParam.duration = await encryptDecryptHandler.decryptString(requestParam.duration)
+            }
+            if(requestParam.location){
+                requestParam.location = await encryptDecryptHandler.decryptString(requestParam.location)
+            }
+            if(requestParam.friend_ids){
+                requestParam.friend_ids = await encryptDecryptHandler.decryptString(requestParam.friend_ids)
+            }
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
             if(!response){
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
