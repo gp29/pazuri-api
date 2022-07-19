@@ -297,14 +297,16 @@ const createMeetup = async(requestParam, req) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            requestParam.friend_ids = requestParam.friend_ids.split(',')
+            let friend_ids = requestParam.friend_ids.split(',')
             if(req.files){
                 if(req.files.photo){
                     requestParam.photo = await imgHandler.uploadImage(req.files.photo, config.aws.s3.userBucket)
                 }
             }
+            sendMeetupUserNoti({user_id: requestParam.user_id, friend_ids})
+            friend_ids.push(requestParam.user_id)
+            requestParam.friend_ids = friend_ids
             await query.insertSingle(dbConstants.dbSchema.meetups, requestParam);
-            sendMeetupUserNoti({user_id: requestParam.user_id, friend_ids: requestParam.friend_ids})
             resolve({});
             return;
         } catch (error) {
@@ -349,6 +351,34 @@ const sendMeetupUserNoti = async(requestParam) => {
     })
 };
 
+const meetupNotification = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let page = (requestParam.page ? parseInt(requestParam.page) : 1);
+            let limit = 20;
+            page -= 1;
+            let skip = page * limit;
+
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {friend_ids:{$in:[requestParam.user_id]}}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1}, {
+                created_at: -1,
+            }, {
+                skip,
+                limit
+            });
+            resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -361,4 +391,5 @@ module.exports = {
     userList,
     details,
     createMeetup,
+    meetupNotification,
 };

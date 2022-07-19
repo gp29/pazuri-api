@@ -814,6 +814,43 @@
                 "operationId": "UserController.CreateMeetup"
             }
         },
+        "/user/meetup-notification": {
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "MeetupNotification",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "MeetupNotification",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "page",
+                    "in": "query",
+                    "schema": {
+                        "type": "number"
+                    }
+                }],
+                "operationId": "UserController.MeetupNotification"
+            }
+        },
 
         "/compliance/list": {
             "get": {
