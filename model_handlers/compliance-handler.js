@@ -20,7 +20,7 @@ const get = async(requestParam) => {
             if(requestParam.status){
                 columnValue.status = requestParam.status
             }
-            let response = await query.selectWithAnd(dbConstants.dbSchema.compliances, columnValue, { _id: 0}, { created_at: 1 });
+            let response = await query.selectWithAnd(dbConstants.dbSchema.compliances, columnValue, { _id: 0, created_at:0, updated_at:0, __v:0}, { created_at: 1 });
             if(requestParam.compliance_id){
                 response = response[0]
                 resolve(response);
@@ -158,10 +158,31 @@ const action = async(requestParam) => {
     })
 };
 
+// API
+const getPrice = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let price = {amount:0}
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.prices, {compliance_id: requestParam.compliance_id}, { _id: 0, price_id:1, amount:1, inclusive_vat:1}, { created_at: 1 });
+            if(response){
+                price = response
+            }
+            resolve(price);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
     create,
     update,
-    action
+    action,
+
+    //API
+    getPrice
 };
