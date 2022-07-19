@@ -59,22 +59,7 @@ router.post('/update', async(req, res) => {
 router.get('/list', async(req, res) => {
     try {
         req.query = await encryptDecryptHandler.decryptJson(req.query.encrypt_data)
-        req.query.status = 'active'
-        let response = await complianceHandler.get(req.query);
-        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
-    } catch (error) {
-        jsonResponse(res, error.code, error, null);
-    }
-});
-
-router.get('/get-price', async(req, res) => {
-    try {
-        req.query = await encryptDecryptHandler.decryptJson(req.query.encrypt_data)
-        if (!req.query.compliance_id) {
-            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
-            return
-        }
-        let response = await complianceHandler.getPrice(req.query);
+        let response = await complianceHandler.list(req.query);
         jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
     } catch (error) {
         jsonResponse(res, error.code, error, null);

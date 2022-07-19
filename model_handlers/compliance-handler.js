@@ -159,15 +159,23 @@ const action = async(requestParam) => {
 };
 
 // API
-const getPrice = async(requestParam) => {
+const list = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
-            let price = {amount:0}
-            let response = await query.selectWithAndOne(dbConstants.dbSchema.prices, {compliance_id: requestParam.compliance_id}, { _id: 0, price_id:1, amount:1, inclusive_vat:1}, { created_at: 1 });
-            if(response){
-                price = response
-            }
-            resolve(price);
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.compliances, {}, { _id: 0, compliance_id:1, name:1}, { created_at: 1 });
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.price = 0
+                elem.price_id = ''
+                elem.inclusive_vat = ''
+                let response = await query.selectWithAndOne(dbConstants.dbSchema.prices, {compliance_id: elem.compliance_id}, { _id: 0, price_id:1, amount:1, inclusive_vat:1}, { created_at: 1 });
+                if(response){
+                    elem.price = response.amount
+                    elem.price_id = response.price_id
+                    elem.inclusive_vat = response.inclusive_vat
+                }
+            }));
+            resolve(lists);
             return;
         } catch (error) {
             reject(error)
@@ -184,5 +192,5 @@ module.exports = {
     action,
 
     //API
-    getPrice
+    list
 };

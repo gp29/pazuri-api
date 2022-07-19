@@ -104,7 +104,7 @@ const getSort = async(requestParam) => {
 const create = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
-            let response = await query.selectWithAndOne(dbConstants.dbSchema.prices, {amount: requestParam.amount, compliance_id: requestParam.compliance_id}, { _id: 0, price_id:1}, { created_at: 1 });
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.prices, {compliance_id: requestParam.compliance_id}, { _id: 0, price_id:1}, { created_at: 1 });
             if(response){
                 reject(errors(labels.LBL_RECORD_ALREADY_EXISTS[config.default_language], responseCodes.ResourceNotFound));
                 return;
@@ -125,7 +125,6 @@ const update = async(requestParam, req) => {
         try {
             let compareColumnAndValues = {
                 price_id: { $ne: requestParam.price_id },
-                amount: requestParam.amount,
                 compliance_id: requestParam.compliance_id,
             };
             let response = await query.selectWithAndOne(dbConstants.dbSchema.prices, compareColumnAndValues, { _id: 0, price_id:1}, { created_at: 1 });

@@ -776,37 +776,6 @@
                 "parameters": [],
                 "operationId": "ComplianceController.List"
             }
-        },
-        "/compliance/get-price": {
-            "get": {
-                "x-controller-name": "ComplianceController",
-                "x-operation-name": "GetPrice",
-                "tags": ["ComplianceController"],
-                "security": [{
-                    "jwt": []
-                }],
-                "responses": {
-                    "200": {
-                        "description": "GetPrice",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {}
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [{
-                    "name": "compliance_id",
-                    "in": "query",
-                    "schema": {
-                        "type": "string"
-                    }
-                }],
-                "operationId": "ComplianceController.GetPrice"
-            }
         }
     },
     "components": {},
