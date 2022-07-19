@@ -864,6 +864,51 @@
                 "operationId": "UserController.MeetupNotification"
             }
         },
+        "/user/accept-reject-meetup": {
+            "post": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "AcceptRejectMeetup",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "AcceptRejectMeetup",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "meetup_id": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": ["accept", "reject"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "UserController.AcceptRejectMeetup"
+            }
+        },
 
         "/compliance/list": {
             "get": {

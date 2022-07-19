@@ -423,6 +423,40 @@ const meetupNotification = async(requestParam, req) => {
     })
 };
 
+const acceptRejectMeetup = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let meetup = await query.selectWithAndOne(dbConstants.dbSchema.meetups, {meetup_id:requestParam.meetup_id}, { _id:0, meetup_id: 1, friend_ids:1, accepted:1, rejected:1} );
+            if(!meetup){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let friend_ids = meetup.friend_ids
+            let rejected = meetup.rejected
+            let accepted = meetup.accepted
+
+            if(requestParam.type == 'accept'){
+                accepted.push(requestParam.user_id)
+            }
+            if(requestParam.type == 'reject'){
+                rejected.push(requestParam.user_id)
+                friend_ids.splice( friend_ids.indexOf(requestParam.user_id), 1 );
+            }
+            await query.updateSingle(dbConstants.dbSchema.meetups, {friend_ids, accepted, rejected}, {meetup_id: requestParam.meetup_id});
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -436,4 +470,5 @@ module.exports = {
     details,
     createMeetup,
     meetupNotification,
+    acceptRejectMeetup,
 };
