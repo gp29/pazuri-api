@@ -514,6 +514,10 @@ const createdMeetupList = async(requestParam, req) => {
                         itm.status = 'pending'
                     }
                 }))
+                elem.users = users
+                delete elem.friend_ids
+                delete elem.accepted
+                delete elem.rejected
             }))
             resolve(lists);
             return;
