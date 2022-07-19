@@ -348,7 +348,7 @@ const createMeetup = async(requestParam, req) => {
                 }
             }
             sendMeetupUserNoti({user_id: requestParam.user_id, friend_ids})
-            friend_ids.push(requestParam.user_id)
+            //friend_ids.push(requestParam.user_id)
             requestParam.friend_ids = friend_ids
             await query.insertSingle(dbConstants.dbSchema.meetups, requestParam);
             resolve({});
