@@ -711,6 +711,12 @@
                         "type": "string"
                     }
                 }, {
+                    "name": "page",
+                    "in": "query",
+                    "schema": {
+                        "type": "number"
+                    }
+                }, {
                     "name": "keyword",
                     "in": "query",
                     "description": "Optional",

@@ -45,6 +45,14 @@ var meetupSchema = new Schema({
         type: String,
         default:''
     },
+    accepted: {
+        type: Array,
+        default:[]
+    },
+    rejected: {
+        type: Array,
+        default:[]
+    },
     created_at: {
         type: Date,
         default: Date.now

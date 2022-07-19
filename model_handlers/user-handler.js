@@ -228,6 +228,11 @@ const changePassword = async(requestParam) => {
 const userList = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
+            let page = (requestParam.page ? parseInt(requestParam.page) : 1);
+            let limit = 20;
+            page -= 1;
+            let skip = page * limit;
+
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
             if(!response){
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
@@ -251,7 +256,12 @@ const userList = async(requestParam) => {
                     username: new RegExp(requestParam.keyword, 'i')
                 }];
             }
-            let lists = await query.selectWithAnd(dbConstants.dbSchema.users, columnMatch, { _id:0, user_id: 1, name:1, profile_photo:1, username:1} );
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.users, columnMatch, { _id:0, user_id: 1, name:1, profile_photo:1, username:1}, {
+                created_at: -1
+            }, {
+                skip,
+                limit
+            });
             lists = JSON.parse(JSON.stringify(lists))
             await Promise.all(lists.map(async (elem) => {
                 elem.profile_photo = elem.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.profile_photo}`}) : ''
