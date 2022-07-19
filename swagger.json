@@ -751,6 +751,69 @@
                 "operationId": "UserController.Details"
             }
         },
+        "/user/create-meetup": {
+            "post": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "CreateMeetup",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "CreateMeetup",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string"
+                                    },
+                                    "time": {
+                                        "type": "string"
+                                    },
+                                    "duration": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "friend_ids": {
+                                        "type": "string",
+                                        "description": "Pass multiple comma seprate 1,2,3"
+                                    },
+                                    "photo": {
+                                        "type": "file"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "UserController.CreateMeetup"
+            }
+        },
 
         "/compliance/list": {
             "get": {

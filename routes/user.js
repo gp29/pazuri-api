@@ -94,4 +94,17 @@ router.get('/details', async(req, res) => {
     }
 });
 
+router.get('/create-meetup', async(req, res) => {
+    try {
+        if (!req.body.user_id || !req.body.title || !req.body.description || !req.body.date || !req.body.time || !req.body.duration || !req.body.location || !req.body.user_id || !req.files.photo)  {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await userHandler.createMeetup(req.body, req);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
 module.exports = router;

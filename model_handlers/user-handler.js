@@ -5,12 +5,15 @@ const errors = require('./../utils/dz-errors');
 const dbConstants = require('./../constants/db-constants');
 const query = require('./../utils/query-creator');
 const user = require('./../models/user');
+const meetup = require('./../models/meetup');
 const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
 const imgHandler = require('./../model_handlers/image-handler');
 const passwordHandler = require('./../utils/password-handler');
+const FCM = require('fcm-push');
+let fcm = new FCM(config.push_key);
 
 const get = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -286,6 +289,66 @@ const details = async(requestParam) => {
     })
 };
 
+const createMeetup = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            requestParam.friend_ids = requestParam.friend_ids.split(',')
+            if(req.files){
+                if(req.files.photo){
+                    requestParam.photo = await imgHandler.uploadImage(req.files.photo, config.aws.s3.userBucket)
+                }
+            }
+            await query.insertSingle(dbConstants.dbSchema.meetups, requestParam);
+            sendMeetupUserNoti({user_id: requestParam.user_id, friend_ids: requestParam.friend_ids})
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const sendMeetupUserNoti = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id: requestParam.user_id}, { _id: 0, user_id: 1, name: 1});
+            if(response){
+                let users = await query.selectWithAnd(dbConstants.dbSchema.users, {user_id:{$in:requestParam.friend_ids} }, {_id: 0, user_id: 1, name: 1, device_token:1});
+                await Promise.all(users.map(async (element) => {
+                    let message = {
+                        to: element.device_token,
+                        collapse_key: 'your_collapse_key',
+                        content_available: true,
+                        mutable_content: true,
+                        priority: "high",
+                        data: {
+                            type: 'meetup',
+                            title: 'Meetup',
+                        },
+                        notification: {
+                            title: "Meetup",
+                            body: response.name+' created meetup with you and '+(requestParam.friend_ids.length - 1)+' others.',
+                            sound: 'default'
+                        }
+                    };
+                    fcm.send(message, function(err, response) {
+                    });
+                }))
+            }
+            return false;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -297,4 +360,5 @@ module.exports = {
     //API
     userList,
     details,
+    createMeetup,
 };

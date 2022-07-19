@@ -13,5 +13,6 @@ module.exports = {
         friend_requests: 'Friend_request',
         friends: 'Friend',
         complies: 'Comply',
+        meetups: 'Meetup',
     }
 };
