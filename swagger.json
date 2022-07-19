@@ -776,6 +776,64 @@
                 "parameters": [],
                 "operationId": "ComplianceController.List"
             }
+        },
+        "/compliance/create-comply": {
+            "post": {
+                "x-controller-name": "ComplianceController",
+                "x-operation-name": "CreateComply",
+                "tags": ["ComplianceController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "CreateComply",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "compliance_id": {
+                                        "type": "string"
+                                    },
+                                    "region_id": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "string"
+                                    },
+                                    "expiry_date": {
+                                        "type": "string"
+                                    },
+                                    "paid_status": {
+                                        "type": "string",
+                                        "enum": ["paid", "unpaid"]
+                                    },
+                                    "transaction_id": {
+                                        "type": "string",
+                                        "description": "Pass only while paid_status=paid"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "ComplianceController.CreateComply"
+            }
         }
     },
     "components": {},

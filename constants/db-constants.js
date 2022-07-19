@@ -11,6 +11,6 @@ module.exports = {
         reminders: 'Reminder',
         images: 'Image',
         friend_requests: 'Friend_request',
-        friends: 'Friend',
+        complies: 'Comply',
     }
 };

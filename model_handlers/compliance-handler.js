@@ -5,6 +5,7 @@ const errors = require('./../utils/dz-errors');
 const dbConstants = require('./../constants/db-constants');
 const query = require('./../utils/query-creator');
 const compliance = require('./../models/compliance');
+const comply = require('./../models/comply');
 const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
@@ -184,6 +185,24 @@ const list = async(requestParam) => {
     })
 };
 
+const createComply = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            await query.insertSingle(dbConstants.dbSchema.complies, requestParam);
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -192,5 +211,6 @@ module.exports = {
     action,
 
     //API
-    list
+    list,
+    createComply
 };
