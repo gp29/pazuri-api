@@ -242,7 +242,16 @@ const userList = async(requestParam) => {
             ids.push(_.pluck(friend_reqs,'opponent_user_id'))
 
             ids = _.flatten(ids)
-            let lists = await query.selectWithAnd(dbConstants.dbSchema.users, {status:'active', user_id:{$nin: ids}}, { _id:0, user_id: 1, name:1, profile_photo:1, username:1} );
+
+            let columnMatch = {status:'active', user_id:{$nin: ids}}
+            if(requestParam.keyword && requestParam.keyword != ''){
+                columnMatch['$or'] = [{
+                    name: new RegExp(requestParam.keyword, 'i')
+                }, {
+                    username: new RegExp(requestParam.keyword, 'i')
+                }];
+            }
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.users, columnMatch, { _id:0, user_id: 1, name:1, profile_photo:1, username:1} );
             lists = JSON.parse(JSON.stringify(lists))
             await Promise.all(lists.map(async (elem) => {
                 elem.profile_photo = elem.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.profile_photo}`}) : ''

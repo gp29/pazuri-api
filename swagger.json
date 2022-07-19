@@ -710,6 +710,13 @@
                     "schema": {
                         "type": "string"
                     }
+                }, {
+                    "name": "keyword",
+                    "in": "query",
+                    "description": "Optional",
+                    "schema": {
+                        "type": "string"
+                    }
                 }],
                 "operationId": "UserController.UserList"
             }
