@@ -9,6 +9,10 @@ var meetupSchema = new Schema({
         type: String,
         default:''
     },
+    user_id: {
+        type: String,
+        default:''
+    },
     friend_ids: {
         type: Array,
         default:[]
