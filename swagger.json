@@ -834,6 +834,37 @@
                 },
                 "operationId": "ComplianceController.CreateComply"
             }
+        },
+        "/compliance/comply-list": {
+            "get": {
+                "x-controller-name": "ComplianceController",
+                "x-operation-name": "ComplyList",
+                "tags": ["ComplianceController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "ComplyList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "ComplianceController.ComplyList"
+            }
         }
     },
     "components": {},

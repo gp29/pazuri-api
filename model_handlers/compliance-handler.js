@@ -185,6 +185,32 @@ const list = async(requestParam) => {
     })
 };
 
+const complyList = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.complies, {user_id:requestParam.user_id}, { _id:0, comply_id: 1, compliance_id:1, expiry_date:1, paid_status:1, status:1} );
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.compliance_name = ''
+                let compliance = await query.selectWithAndOne(dbConstants.dbSchema.compliances, {compliance_id: elem.compliance_id}, { _id: 0, name:1}, { created_at: 1 });
+                if(compliance){
+                    elem.compliance_name = compliance.name
+                }
+            }));
+            resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 const createComply = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
@@ -212,5 +238,6 @@ module.exports = {
 
     //API
     list,
+    complyList,
     createComply
 };
