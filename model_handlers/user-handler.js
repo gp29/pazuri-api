@@ -408,7 +408,7 @@ const meetupNotification = async(requestParam, req) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {friend_ids:{$in:[requestParam.user_id]}}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1}, {
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {friend_ids:{$in:[requestParam.user_id]}, user_id:{$ne: requestParam.user_id}}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1}, {
                 created_at: -1,
             }, {
                 skip,
@@ -475,6 +475,55 @@ const deleteMeetup = async(requestParam, req) => {
     })
 };
 
+const createdMeetupList = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let page = (requestParam.page ? parseInt(requestParam.page) : 1);
+            let limit = 20;
+            page -= 1;
+            let skip = page * limit;
+
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {user_id: requestParam.user_id}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1}, {
+                created_at: -1,
+            }, {
+                skip,
+                limit
+            });
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                let ids = elem.friend_ids
+                ids.push(elem.accepted)
+                ids.push(elem.rejected)
+                ids = _.uniq(_.flatten(ids))
+                let users = await query.selectWithAnd(dbConstants.dbSchema.users, {user_id:{$in: ids}}, { _id:0, user_id: 1, name:1, username:1, profile_photo:1} );
+                users = JSON.parse(JSON.stringify(users))
+                await Promise.all(users.map(async (itm) => {
+                    itm.profile_photo = itm.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${itm.profile_photo}`}) : ''
+                    if(elem.accepted.includes(itm.user_id) == true){
+                        itm.status = 'accepted'
+                    }
+                    else if(elem.rejected.includes(itm.user_id) == true){
+                        itm.status = 'rejected'
+                    }
+                    else{
+                        itm.status = 'pending'
+                    }
+                }))
+            }))
+            resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -490,4 +539,5 @@ module.exports = {
     meetupNotification,
     acceptRejectMeetup,
     deleteMeetup,
+    createdMeetupList,
 };
