@@ -246,6 +246,7 @@ const userList = async(requestParam) => {
             resolve(lists);
             return;
         } catch (error) {
+            console.log(error)
             reject(error)
             return
         }
