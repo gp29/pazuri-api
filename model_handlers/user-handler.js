@@ -500,6 +500,7 @@ const createdMeetupList = async(requestParam, req) => {
                 ids.push(elem.accepted)
                 ids.push(elem.rejected)
                 ids = _.uniq(_.flatten(ids))
+                ids = _.without(ids, requestParam.user_id)
                 let users = await query.selectWithAnd(dbConstants.dbSchema.users, {user_id:{$in: ids}}, { _id:0, user_id: 1, name:1, username:1, profile_photo:1} );
                 users = JSON.parse(JSON.stringify(users))
                 await Promise.all(users.map(async (itm) => {
