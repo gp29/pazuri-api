@@ -135,4 +135,18 @@ router.post('/accept-reject-meetup', async(req, res) => {
     }
 });
 
+router.post('/delete-meetup', async(req, res) => {
+    try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
+        if (!req.body.user_id || !req.body.meetup_id) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        let response = await userHandler.deleteMeetup(req.body);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
 module.exports = router;

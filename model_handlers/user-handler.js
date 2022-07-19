@@ -457,6 +457,24 @@ const acceptRejectMeetup = async(requestParam, req) => {
     })
 };
 
+const deleteMeetup = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            await query.removeMultiple(dbConstants.dbSchema.meetups, { meetup_id: { $in: [requestParam.meetup_id]}});
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -471,4 +489,5 @@ module.exports = {
     createMeetup,
     meetupNotification,
     acceptRejectMeetup,
+    deleteMeetup,
 };

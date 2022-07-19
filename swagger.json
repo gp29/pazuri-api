@@ -909,6 +909,47 @@
                 "operationId": "UserController.AcceptRejectMeetup"
             }
         },
+        "/user/delete-meetup": {
+            "post": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "DeleteMeetup",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "DeleteMeetup",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "meetup_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "UserController.DeleteMeetup"
+            }
+        },
 
         "/compliance/list": {
             "get": {
