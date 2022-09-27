@@ -382,7 +382,6 @@ const sendMeetupUserNoti = async(requestParam) => {
             let columnMatch = {}
             if(requestParam.type == 'private'){
                 columnMatch = {user_id:{$in:requestParam.friend_ids}}
-                body = response.name+' created meetup with you and '+(requestParam.friend_ids.length - 1)+' others.'
             }
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id: requestParam.user_id}, { _id: 0, user_id: 1, name: 1});
             if(response){
