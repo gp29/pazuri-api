@@ -380,13 +380,16 @@ const sendMeetupUserNoti = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
             let columnMatch = {}
-            let body = response.name+' created meetup, join now.'
             if(requestParam.type == 'private'){
                 columnMatch = {user_id:{$in:requestParam.friend_ids}}
                 body = response.name+' created meetup with you and '+(requestParam.friend_ids.length - 1)+' others.'
             }
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id: requestParam.user_id}, { _id: 0, user_id: 1, name: 1});
             if(response){
+                let body = response.name+' created meetup, join now.'
+                if(requestParam.type == 'private'){
+                    body = response.name+' created meetup with you and '+(requestParam.friend_ids.length - 1)+' others.'
+                }
                 let users = await query.selectWithAnd(dbConstants.dbSchema.users, columnMatch, {_id: 0, user_id: 1, name: 1, device_token:1});
                 await Promise.all(users.map(async (element) => {
                     let message = {
