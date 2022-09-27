@@ -829,6 +829,13 @@
                                     },
                                     "photo": {
                                         "type": "file"
+                                    },
+                                    "paid_free": {
+                                        "type": "string",
+                                        "description": "Pass free or paid"
+                                    },
+                                    "amount": {
+                                        "type": "number"
                                     }
                                 }
                             }
