@@ -13,6 +13,18 @@ var meetupSchema = new Schema({
         type: String,
         default:''
     },
+    category_id: {
+        type: String,
+        default:''
+    },
+    type: {
+        type: String,
+        default:''
+    },
+    limit: {
+        type: Number,
+        default:0
+    },
     friend_ids: {
         type: Array,
         default:[]

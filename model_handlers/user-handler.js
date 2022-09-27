@@ -336,20 +336,33 @@ const createMeetup = async(requestParam, req) => {
             if(requestParam.friend_ids){
                 requestParam.friend_ids = await encryptDecryptHandler.decryptString(requestParam.friend_ids)
             }
+            if(requestParam.category_id){
+                requestParam.category_id = await encryptDecryptHandler.decryptString(requestParam.category_id)
+            }
+            if(requestParam.type){
+                requestParam.type = await encryptDecryptHandler.decryptString(requestParam.type)
+            }
+            if(requestParam.limit){
+                requestParam.limit = await encryptDecryptHandler.decryptString(requestParam.limit)
+            }
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
             if(!response){
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let friend_ids = requestParam.friend_ids.split(',')
             if(req.files){
                 if(req.files.photo){
                     requestParam.photo = await imgHandler.uploadImage(req.files.photo, config.aws.s3.userBucket)
                 }
             }
-            sendMeetupUserNoti({user_id: requestParam.user_id, friend_ids})
-            //friend_ids.push(requestParam.user_id)
-            requestParam.friend_ids = friend_ids
+            if(requestParam.friend_ids && requestParam.type == 'private'){
+                let friend_ids = requestParam.friend_ids.split(',')
+                sendMeetupUserNoti({user_id: requestParam.user_id, friend_ids, type: requestParam.type})
+                requestParam.friend_ids = friend_ids
+            }
+            else{
+                sendMeetupUserNoti({user_id: requestParam.user_id, type: requestParam.type})
+            }
             await query.insertSingle(dbConstants.dbSchema.meetups, requestParam);
             resolve({});
             return;
@@ -363,9 +376,15 @@ const createMeetup = async(requestParam, req) => {
 const sendMeetupUserNoti = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
+            let columnMatch = {}
+            let body = response.name+' created meetup, join now.'
+            if(requestParam.type == 'private'){
+                columnMatch = {user_id:{$in:requestParam.friend_ids}}
+                body = response.name+' created meetup with you and '+(requestParam.friend_ids.length - 1)+' others.'
+            }
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id: requestParam.user_id}, { _id: 0, user_id: 1, name: 1});
             if(response){
-                let users = await query.selectWithAnd(dbConstants.dbSchema.users, {user_id:{$in:requestParam.friend_ids} }, {_id: 0, user_id: 1, name: 1, device_token:1});
+                let users = await query.selectWithAnd(dbConstants.dbSchema.users, columnMatch, {_id: 0, user_id: 1, name: 1, device_token:1});
                 await Promise.all(users.map(async (element) => {
                     let message = {
                         to: element.device_token,
@@ -379,7 +398,7 @@ const sendMeetupUserNoti = async(requestParam) => {
                         },
                         notification: {
                             title: "Meetup",
-                            body: response.name+' created meetup with you and '+(requestParam.friend_ids.length - 1)+' others.',
+                            body: body,
                             sound: 'default'
                         }
                     };

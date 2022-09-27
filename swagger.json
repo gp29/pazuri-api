@@ -812,9 +812,20 @@
                                     "location": {
                                         "type": "string"
                                     },
+                                    "category_id": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": ["private", "public"]
+                                    },
+                                    "limit": {
+                                        "type": "number",
+                                        "description": "Pass when type=public"
+                                    },
                                     "friend_ids": {
                                         "type": "string",
-                                        "description": "Pass multiple comma seprate 1,2,3"
+                                        "description": "Pass when type=private and multiple comma seprate 1,2,3"
                                     },
                                     "photo": {
                                         "type": "file"
