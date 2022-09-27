@@ -1101,6 +1101,38 @@
                 }],
                 "operationId": "ComplianceController.ComplyList"
             }
+        },
+
+        "/category/list": {
+            "get": {
+                "x-controller-name": "CategoryController",
+                "x-operation-name": "List",
+                "tags": ["CategoryController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "CategoryController.List"
+            }
         }
     },
     "components": {},

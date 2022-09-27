@@ -14,5 +14,6 @@ module.exports = {
         friends: 'Friend',
         complies: 'Comply',
         meetups: 'Meetup',
+        categories: 'Category',
     }
 };

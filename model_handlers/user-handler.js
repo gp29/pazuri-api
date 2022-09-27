@@ -110,7 +110,7 @@ const create = async(requestParam, req) => {
             requestParam.email = requestParam.email.trim();
             let regexEmail = new RegExp(['^', requestParam.email, '$'].join(''), 'i');
             let compareColumnAndValues = {
-                 $or: [{
+                $or: [{
                     email: regexEmail
                 }, {
                     mobile: requestParam.mobile,
