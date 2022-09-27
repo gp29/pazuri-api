@@ -14,6 +14,7 @@ const requiredParams = [
     'AWS_S3_URL_PRIFIX',
     'AWS_S3_USER_BUCKET',
     'AWS_S3_IMAGE_BUCKET',
+    'AWS_S3_CATEGORY_BUCKET',
     'DATABASE_URL',
     'PUSH_KEY',
     'GOOGLE_KEY',
@@ -55,6 +56,7 @@ module.exports = {
         s3: {
             userBucket: process.env.AWS_S3_USER_BUCKET,
             imageBucket: process.env.AWS_S3_IMAGE_BUCKET,
+            categoryBucket: process.env.AWS_S3_CATEGORY_BUCKET,
 	    },
 	}
 };

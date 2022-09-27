@@ -9,6 +9,7 @@ const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
+const imgHandler = require('./../model_handlers/image-handler');
 
 const get = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -18,8 +19,10 @@ const get = async(requestParam) => {
                 columnValue.category_id = requestParam.category_id
             }
             let response = await query.selectWithAnd(dbConstants.dbSchema.categories, columnValue, { _id: 0}, { created_at: 1 });
+            response = JSON.parse(JSON.stringify(response))
             if(requestParam.category_id){
                 response = response[0]
+                response.image = response.image != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/categories/${response.image}`}) : ''
                 resolve(response);
                 return;
             }
@@ -79,13 +82,18 @@ const getSort = async(requestParam) => {
     })
 };
 
-const create = async(requestParam) => {
+const create = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
             let response = await query.selectWithAndOne(dbConstants.dbSchema.categories, {title: requestParam.title}, { _id: 0, category_id:1}, { created_at: 1 });
             if(response){
                 reject(errors(labels.LBL_RECORD_ALREADY_EXISTS[config.default_language], responseCodes.ResourceNotFound));
                 return;
+            }
+            if(req.files){
+                if(req.files.image){
+                    requestParam.image = await imgHandler.uploadImage(req.files.image, config.aws.s3.categoryBucket)
+                }
             }
             await query.insertSingle(dbConstants.dbSchema.categories, requestParam);
             resolve({});
@@ -110,6 +118,17 @@ const update = async(requestParam, req) => {
                 reject(errors(labels.LBL_RECORD_ALREADY_EXISTS[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
+            let cat = await query.selectWithAndOne(dbConstants.dbSchema.categories, {category_id: requestParam.category_id}, { _id: 0, image:1}, { created_at: 1 });
+            if (requestParam.change_logo) {
+                const objects = [{
+                    Key: `pazuri/categories/${cat.image}`
+                }];
+                await imgHandler.deleteImage(objects, config.aws.bucketName)
+                requestParam.image = await imgHandler.uploadImage(req.files.image, config.aws.s3.categoryBucket)
+            }
+            else{
+                delete requestParam.image
+            }
             await query.updateSingle(dbConstants.dbSchema.categories, requestParam, {category_id: requestParam.category_id});
             resolve({});
             return;
@@ -124,6 +143,14 @@ const action = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
             if (requestParam['type']== "delete") {
+                let response = await query.selectWithAnd(dbConstants.dbSchema.categories, {category_id: {$in: requestParam.ids}}, { _id: 0, category_id:1, image:1}, { created_at: 1 });
+                let objects = []
+                await Promise.all(response.map(async (elem) => {
+                    objects.push({
+                        Key: `pazuri/categories/${elem.image}`
+                    });
+                }))
+                if(objects.length > 0) await imgHandler.deleteImage(objects, config.aws.bucketName)
                 await query.removeMultiple(dbConstants.dbSchema.categories, { category_id: { $in: requestParam['ids']}});
             }
             else{
@@ -146,7 +173,11 @@ const list = async(requestParam) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let lists = await query.selectWithAnd(dbConstants.dbSchema.categories, {status:'active'}, { _id:0, category_id: 1, title:1} );
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.categories, {status:'active'}, { _id:0, category_id: 1, title:1, image:1} );
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.image = elem.image != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/categories/${elem.image}`}) : ''
+            }))
             resolve(lists);
             return;
         } catch (error) {

@@ -55,6 +55,9 @@ const getImage = (params) => {
                 if(params.key.includes("images") == true){
                     img = config.aws.prefix + config.aws.s3.imageBucket + '/' + key
                 }
+                if(params.key.includes("categories") == true){
+                    img = config.aws.prefix + config.aws.s3.categoryBucket + '/' + key
+                }
                 resolve(img);
                 return;
             } catch (error) {

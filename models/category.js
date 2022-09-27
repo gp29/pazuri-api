@@ -17,6 +17,10 @@ var categorySchema = new Schema({
         type: String,
         default:''
     },
+    image: {
+        type: String,
+        default:''
+    },
     created_at: {
         type: Date,
         default: Date.now
