@@ -830,12 +830,9 @@
                                     "photo": {
                                         "type": "file"
                                     },
-                                    "paid_free": {
-                                        "type": "string",
-                                        "description": "Pass free or paid"
-                                    },
                                     "amount": {
-                                        "type": "number"
+                                        "type": "number",
+                                        "description": "Pass when type=public"
                                     }
                                 }
                             }

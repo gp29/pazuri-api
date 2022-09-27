@@ -25,10 +25,6 @@ var meetupSchema = new Schema({
         type: Number,
         default:0
     },
-    paid_free: {
-        type: String,
-        default:''
-    },
     amount: {
         type: Number,
         default:0

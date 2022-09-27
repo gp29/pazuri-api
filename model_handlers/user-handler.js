@@ -345,9 +345,6 @@ const createMeetup = async(requestParam, req) => {
             if(requestParam.limit){
                 requestParam.limit = await encryptDecryptHandler.decryptString(requestParam.limit)
             }
-            if(requestParam.paid_free){
-                requestParam.paid_free = await encryptDecryptHandler.decryptString(requestParam.paid_free)
-            }
             if(requestParam.amount){
                 requestParam.amount = await encryptDecryptHandler.decryptString(requestParam.amount)
             }
@@ -513,7 +510,7 @@ const createdMeetupList = async(requestParam, req) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {user_id: requestParam.user_id}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1, type:1, category_id:1, limit:1, paid_free:1, amount:1}, {
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {user_id: requestParam.user_id}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1, type:1, category_id:1, limit:1, amount:1}, {
                 created_at: -1,
             }, {
                 skip,
