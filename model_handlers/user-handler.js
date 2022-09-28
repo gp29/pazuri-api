@@ -760,8 +760,22 @@ const meetupComment = async(requestParam, req) => {
                     requestParam.msg = await imgHandler.uploadImage(req.files.image, config.aws.s3.userBucket)
                 }
             }
-            await query.insertSingle(dbConstants.dbSchema.meetup_comments, requestParam);
-            resolve({});
+            let res = await query.insertSingle(dbConstants.dbSchema.meetup_comments, requestParam);
+            
+            let elem = await query.selectWithAndOne(dbConstants.dbSchema.meetup_comments, {comment_id: res.comment_id}, { _id:0, comment_id:1, meetup_id: 1, user_id:1, type:1, msg:1, created_at:1}, { created_at: -1});
+            elem.created_at = timeZone(new Date(elem.created_at)).tz(requestParam.time_zone).format('lll')
+
+            elem.user_name = ''
+            elem.user_photo = ''
+            let user = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:elem.user_id}, { _id:0, user_id: 1, name:1, profile_photo:1} );
+            if(user){
+                elem.user_name = user.name
+                elem.user_photo = user.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${user.profile_photo}`}) : ''
+            }
+            if(elem.type == 'image'){
+                elem.msg = elem.msg != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.msg}`}) : ''
+            }
+            resolve(elem);
             return;
         } catch (error) {
             reject(error)
