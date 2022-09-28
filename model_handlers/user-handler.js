@@ -460,12 +460,19 @@ const homeMeetupList = async(requestParam, req) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {user_id:{$ne: requestParam.user_id}, type:'public'}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1, amount:1, type:1, limit:1}, {
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {user_id:{$ne: requestParam.user_id}, type:'public'}, { _id:0, meetup_id: 1, title:1, description:1, date:1, time:1, duration:1, accepted:1, amount:1, type:1, limit:1}, {
                 created_at: -1,
             }, {
                 skip,
                 limit
             });
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.is_join = false
+                if(elem.accepted.includes(requestParam.user_id) == true){
+                    elem.is_join = true
+                }
+            }))
             resolve(lists);
             return;
         } catch (error) {
