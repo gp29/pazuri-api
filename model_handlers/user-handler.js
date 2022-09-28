@@ -784,6 +784,30 @@ const meetupComment = async(requestParam, req) => {
     })
 };
 
+
+const getImages = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAndOne(dbConstants.dbSchema.meetup_comments, {meetup_id:requestParam.meetup_id, type:'image'}, { _id:0, msg:1} );
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.msg = elem.msg != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.msg}`}) : ''
+            }))
+            let obj = {users:[], images: _.pluck(lists, 'msg')}
+            resolve(obj);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -804,5 +828,6 @@ module.exports = {
     joinMeetup,
     joinedMeetupList,
     meetupCommentList,
-    meetupComment
+    meetupComment,
+    getImages
 };

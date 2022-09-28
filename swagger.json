@@ -1219,6 +1219,43 @@
                 "operationId": "UserController.MeetupComment"
             }
         },
+        "/user/get-images": {
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "GetImages",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "GetImages",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "meetup_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "UserController.GetImages"
+            }
+        },
 
         "/compliance/list": {
             "get": {
