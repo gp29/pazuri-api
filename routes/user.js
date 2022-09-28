@@ -234,7 +234,7 @@ router.post('/meetup-comment', async(req, res) => {
             return
         }
         let response = await userHandler.meetupComment(req.body, req);
-        jsonResponse(res, responseCodes.OK, null, response);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
     } catch (error) {
         jsonResponse(res, error.code, error, null);
     }
