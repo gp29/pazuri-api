@@ -313,7 +313,7 @@ const details = async(requestParam) => {
 const createMeetup = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
-             if(requestParam.user_id){
+            if(requestParam.user_id){
                 requestParam.user_id = await encryptDecryptHandler.decryptString(requestParam.user_id)
             }
             if(requestParam.title){
@@ -738,6 +738,18 @@ const meetupCommentList = async(requestParam, req) => {
 const meetupComment = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
+            if(requestParam.user_id){
+                requestParam.user_id = await encryptDecryptHandler.decryptString(requestParam.user_id)
+            }
+            if(requestParam.meetup_id){
+                requestParam.meetup_id = await encryptDecryptHandler.decryptString(requestParam.meetup_id)
+            }
+            if(requestParam.type){
+                requestParam.type = await encryptDecryptHandler.decryptString(requestParam.type)
+            }
+            if(requestParam.msg){
+                requestParam.msg = await encryptDecryptHandler.decryptString(requestParam.msg)
+            }
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
             if(!response){
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
