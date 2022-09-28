@@ -1035,6 +1035,12 @@
                     "schema": {
                         "type": "number"
                     }
+                }, {
+                    "name": "category_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
                 }],
                 "operationId": "UserController.HomeMeetupList"
             }
