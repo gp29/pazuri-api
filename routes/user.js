@@ -233,18 +233,6 @@ router.post('/meetup-comment', async(req, res) => {
             jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
             return
         }
-        if(req.body.type == 'image'){
-            if (!req.files.image) {
-                jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
-                return
-            }
-        }
-        else{
-            if (!req.body.msg) {
-                jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
-                return
-            }
-        }
         let response = await userHandler.meetupComment(req.body, req);
         jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
     } catch (error) {
