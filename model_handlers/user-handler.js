@@ -801,13 +801,19 @@ const getImages = async(requestParam) => {
             }))
 
             let users = []
-            let meetup = await query.selectWithAndOne(dbConstants.dbSchema.meetups, {meetup_id:requestParam.meetup_id}, { _id:0, meetup_id: 1, accepted:1} );
+            let meetup = await query.selectWithAndOne(dbConstants.dbSchema.meetups, {meetup_id:requestParam.meetup_id}, { _id:0, meetup_id: 1, user_id:1, accepted:1} );
             if(meetup){
                 users = await query.selectWithAnd(dbConstants.dbSchema.users, {user_id:{$in: meetup.accepted}}, { _id:0, user_id: 1, name:1, profile_photo:1} );
                 users = JSON.parse(JSON.stringify(users))
                 await Promise.all(users.map(async (elem) => {
                     elem.profile_photo = elem.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.profile_photo}`}) : ''
                 }))
+
+                let created_user = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:meetup.user_id}, { _id:0, user_id: 1, name:1, profile_photo:1} );
+                if(created_user){
+                    created_user.profile_photo = created_user.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${created_user.profile_photo}`}) : ''
+                    users.push(created_user)
+                }
             }
             let obj = {users:users, images: _.pluck(lists, 'msg')}
             resolve(obj);
