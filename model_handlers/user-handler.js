@@ -813,6 +813,7 @@ const getImages = async(requestParam) => {
             resolve(obj);
             return;
         } catch (error) {
+            console.log(error)
             reject(error)
             return
         }
