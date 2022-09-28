@@ -472,6 +472,7 @@ const homeMeetupList = async(requestParam, req) => {
                 if(elem.accepted.includes(requestParam.user_id) == true){
                     elem.is_join = true
                 }
+                delete elem.accepted
             }))
             resolve(lists);
             return;
