@@ -432,13 +432,70 @@ const meetupNotification = async(requestParam, req) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {friend_ids:{$in:[requestParam.user_id]}, user_id:{$ne: requestParam.user_id}}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1}, {
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {friend_ids:{$in:[requestParam.user_id]}, user_id:{$ne: requestParam.user_id}, type:'private'}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1}, {
                 created_at: -1,
             }, {
                 skip,
                 limit
             });
             resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const homeMeetupList = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let page = (requestParam.page ? parseInt(requestParam.page) : 1);
+            let limit = 20;
+            page -= 1;
+            let skip = page * limit;
+
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, {user_id:{$ne: requestParam.user_id}, type:'public'}, { _id:0, meetup_id: 1, title:1, description:1, friend_ids:1, date:1, time:1, duration:1, accepted:1, rejected:1, amount:1, type:1, limit:1}, {
+                created_at: -1,
+            }, {
+                skip,
+                limit
+            });
+            resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const joinMeetup = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let meetup = await query.selectWithAndOne(dbConstants.dbSchema.meetups, {meetup_id:requestParam.meetup_id}, { _id:0, meetup_id: 1, friend_ids:1, accepted:1, rejected:1, limit:1} );
+            if(!meetup){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            if(limit == meetup.accepted.length){
+                reject(errors(labels.LBL_LIMIT_OVER[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let accepted = meetup.accepted
+            accepted.push(requestParam.user_id)
+            await query.updateSingle(dbConstants.dbSchema.meetups, {accepted, $inc: { limit: 1 }}, {meetup_id: requestParam.meetup_id});
+            resolve({});
             return;
         } catch (error) {
             reject(error)
@@ -569,4 +626,6 @@ module.exports = {
     acceptRejectMeetup,
     deleteMeetup,
     createdMeetupList,
+    homeMeetupList,
+    joinMeetup
 };

@@ -46,5 +46,8 @@
     },
     "LBL_DISTANCE_NOT_FOUND": {
         "EN": "Google API key was expired or didn't found distace on addresses."
+    },
+    "LBL_LIMIT_OVER": {
+        "EN": "You can't join this meetup, it is full of now."
     }
 }
