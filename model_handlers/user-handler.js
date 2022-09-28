@@ -514,7 +514,7 @@ const joinMeetup = async(requestParam, req) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            if(limit == meetup.accepted.length){
+            if(meetup.limit == meetup.accepted.length){
                 reject(errors(labels.LBL_LIMIT_OVER[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
@@ -524,6 +524,7 @@ const joinMeetup = async(requestParam, req) => {
             resolve({});
             return;
         } catch (error) {
+            console.log(error)
             reject(error)
             return
         }
