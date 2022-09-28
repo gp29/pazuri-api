@@ -794,7 +794,7 @@ const getImages = async(requestParam) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let lists = await query.selectWithAndOne(dbConstants.dbSchema.meetup_comments, {meetup_id:requestParam.meetup_id, type:'image'}, { _id:0, msg:1} );
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.meetup_comments, {meetup_id:requestParam.meetup_id, type:'image'}, { _id:0, msg:1} );
             lists = JSON.parse(JSON.stringify(lists))
             await Promise.all(lists.map(async (elem) => {
                 elem.msg = elem.msg != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.msg}`}) : ''
