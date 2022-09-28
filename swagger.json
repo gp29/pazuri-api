@@ -1086,6 +1086,43 @@
                 "operationId": "UserController.JoinMeetup"
             }
         },
+        "/user/joined-meetup-list": {
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "JoinedMeetupList",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "JoinedMeetupList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "page",
+                    "in": "query",
+                    "schema": {
+                        "type": "number"
+                    }
+                }],
+                "operationId": "UserController.JoinedMeetupList"
+            }
+        },
 
         "/compliance/list": {
             "get": {

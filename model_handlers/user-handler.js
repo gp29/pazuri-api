@@ -501,6 +501,58 @@ const homeMeetupList = async(requestParam, req) => {
     })
 };
 
+const joinedMeetupList = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let page = (requestParam.page ? parseInt(requestParam.page) : 1);
+            let limit = 20;
+            page -= 1;
+            let skip = page * limit;
+
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let matchColumn = {
+                user_id:{$ne: requestParam.user_id},
+                accepted:{$in: [requestParam.user_id]}
+            }
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, matchColumn, { _id:0, user_id:1, meetup_id: 1, title:1, description:1, date:1, time:1, duration:1, accepted:1, amount:1, type:1, limit:1, location:1, photo:1}, {
+                created_at: -1,
+            }, {
+                skip,
+                limit
+            });
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.photo = elem.photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.photo}`}) : ''
+
+                elem.user_name = ''
+                elem.user_photo = ''
+                let user = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:elem.user_id}, { _id:0, user_id: 1, name:1, profile_photo:1} );
+                if(user){
+                    elem.user_name = user.name
+                    elem.user_photo = user.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${user.profile_photo}`}) : ''
+                }
+
+                elem.is_join = false
+                if(elem.accepted.includes(requestParam.user_id) == true){
+                    elem.is_join = true
+                }
+
+                elem.joined_users = elem.accepted.length
+                delete elem.accepted
+            }))
+            resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 const joinMeetup = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
@@ -654,5 +706,6 @@ module.exports = {
     deleteMeetup,
     createdMeetupList,
     homeMeetupList,
-    joinMeetup
+    joinMeetup,
+    joinedMeetupList
 };
