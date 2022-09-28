@@ -488,6 +488,8 @@ const homeMeetupList = async(requestParam, req) => {
                 if(elem.accepted.includes(requestParam.user_id) == true){
                     elem.is_join = true
                 }
+
+                elem.joined_users = elem.accepted.length
                 delete elem.accepted
             }))
             resolve(lists);
