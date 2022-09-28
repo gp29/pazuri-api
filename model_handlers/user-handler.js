@@ -514,10 +514,12 @@ const joinedMeetupList = async(requestParam, req) => {
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
                 return;
             }
-            let matchColumn = {
-                user_id:{$ne: requestParam.user_id},
-                accepted:{$in: [requestParam.user_id]}
-            }
+            let matchColumn = {}
+            matchColumn['$or'] = [{
+                user_id: requestParam.user_id
+            }, {
+                accepted: {$in: [requestParam.user_id]}
+            }]
             let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetups, matchColumn, { _id:0, user_id:1, meetup_id: 1, title:1, description:1, date:1, time:1, duration:1, accepted:1, amount:1, type:1, limit:1, location:1, photo:1}, {
                 created_at: -1,
             }, {
