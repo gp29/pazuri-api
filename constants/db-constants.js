@@ -15,5 +15,6 @@ module.exports = {
         complies: 'Comply',
         meetups: 'Meetup',
         categories: 'Category',
+        meetup_comments: 'Meetup_comment',
     }
 };

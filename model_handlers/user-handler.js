@@ -6,6 +6,7 @@ const dbConstants = require('./../constants/db-constants');
 const query = require('./../utils/query-creator');
 const user = require('./../models/user');
 const meetup = require('./../models/meetup');
+const meetup_comment = require('./../models/meetup-comment');
 const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
@@ -691,6 +692,41 @@ const createdMeetupList = async(requestParam, req) => {
     })
 };
 
+const meetupCommentList = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetup_comments, {meetup_id: requestParam.meetup_id}, { _id:0, comment_id:1, meetup_id: 1, user_id:1, type:1, msg:1, created_at:1}, {
+                created_at: -1,
+            }, {});
+            lists = JSON.parse(JSON.stringify(lists))
+            await Promise.all(lists.map(async (elem) => {
+                elem.created_at = timeZone(new Date(elem.created_at)).tz(requestParam.time_zone).format('lll')
+                
+                elem.user_name = ''
+                elem.user_photo = ''
+                let user = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:elem.user_id}, { _id:0, user_id: 1, name:1, profile_photo:1} );
+                if(user){
+                    elem.user_name = user.name
+                    elem.user_photo = user.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${user.profile_photo}`}) : ''
+                }
+                if(elem.type == 'image'){
+                    elem.msg = elem.msg != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`pazuri/users/${elem.msg}`}) : ''
+                }
+            }))
+            resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
@@ -709,5 +745,6 @@ module.exports = {
     createdMeetupList,
     homeMeetupList,
     joinMeetup,
-    joinedMeetupList
+    joinedMeetupList,
+    meetupCommentList
 };

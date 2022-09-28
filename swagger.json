@@ -1123,6 +1123,43 @@
                 "operationId": "UserController.JoinedMeetupList"
             }
         },
+        "/user/meetup-comment-list": {
+            "get": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "MeetupCommentList",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "MeetupCommentList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "meetup_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "UserController.MeetupCommentList"
+            }
+        },
 
         "/compliance/list": {
             "get": {
