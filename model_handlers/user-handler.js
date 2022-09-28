@@ -747,7 +747,7 @@ const meetupComment = async(requestParam, req) => {
             if(requestParam.type){
                 requestParam.type = await encryptDecryptHandler.decryptString(requestParam.type)
             }
-            if(requestParam.msg){
+            if(requestParam.msg && requestParam.msg!=''){
                 requestParam.msg = await encryptDecryptHandler.decryptString(requestParam.msg)
             }
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
@@ -761,7 +761,7 @@ const meetupComment = async(requestParam, req) => {
                 }
             }
             let res = await query.insertSingle(dbConstants.dbSchema.meetup_comments, requestParam);
-            
+
             let elem = await query.selectWithAndOne(dbConstants.dbSchema.meetup_comments, {comment_id: res.comment_id}, { _id:0, comment_id:1, meetup_id: 1, user_id:1, type:1, msg:1, created_at:1}, { created_at: -1});
             elem.created_at = timeZone(new Date(elem.created_at)).tz(requestParam.time_zone).format('lll')
 
