@@ -695,6 +695,11 @@ const createdMeetupList = async(requestParam, req) => {
 const meetupCommentList = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
+            let page = (requestParam.page ? parseInt(requestParam.page) : 1);
+            let limit = 20;
+            page -= 1;
+            let skip = page * limit;
+
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
             if(!response){
                 reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
@@ -702,11 +707,14 @@ const meetupCommentList = async(requestParam, req) => {
             }
             let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetup_comments, {meetup_id: requestParam.meetup_id}, { _id:0, comment_id:1, meetup_id: 1, user_id:1, type:1, msg:1, created_at:1}, {
                 created_at: -1,
-            }, {});
+            }, {
+                skip,
+                limit
+            });
             lists = JSON.parse(JSON.stringify(lists))
             await Promise.all(lists.map(async (elem) => {
                 elem.created_at = timeZone(new Date(elem.created_at)).tz(requestParam.time_zone).format('lll')
-                
+
                 elem.user_name = ''
                 elem.user_photo = ''
                 let user = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:elem.user_id}, { _id:0, user_id: 1, name:1, profile_photo:1} );
@@ -719,6 +727,29 @@ const meetupCommentList = async(requestParam, req) => {
                 }
             }))
             resolve(lists);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const meetupComment = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {user_id:requestParam.user_id}, { _id:0, user_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            if(req.files){
+                if(req.files.image){
+                    requestParam.msg = await imgHandler.uploadImage(req.files.image, config.aws.s3.userBucket)
+                }
+            }
+            await query.insertSingle(dbConstants.dbSchema.meetup_comments, requestParam);
+            resolve({});
             return;
         } catch (error) {
             reject(error)
@@ -746,5 +777,6 @@ module.exports = {
     homeMeetupList,
     joinMeetup,
     joinedMeetupList,
-    meetupCommentList
+    meetupCommentList,
+    meetupComment
 };

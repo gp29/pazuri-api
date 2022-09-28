@@ -1156,8 +1156,67 @@
                     "schema": {
                         "type": "string"
                     }
+                }, {
+                    "name": "page",
+                    "in": "query",
+                    "schema": {
+                        "type": "number"
+                    }
                 }],
                 "operationId": "UserController.MeetupCommentList"
+            }
+        },
+        "/user/meetup-comment": {
+            "post": {
+                "x-controller-name": "UserController",
+                "x-operation-name": "MeetupComment",
+                "tags": ["UserController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "MeetupComment",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user_id": {
+                                        "type": "string"
+                                    },
+                                    "meetup_id": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": ["image", "msg"]
+                                    },
+                                    "image": {
+                                        "type": "file",
+                                        "description": "Pass while type=image"
+                                    },
+                                    "msg": {
+                                        "type": "string",
+                                        "description": "Pass while type=msg"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "UserController.MeetupComment"
             }
         },
 

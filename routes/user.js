@@ -212,11 +212,40 @@ router.get('/meetup-comment-list', async(req, res) => {
         if(req.headers.time_zone){
             req.query.time_zone = req.headers.time_zone
         }
-        if (!req.query.user_id || !req.query.meetup_id) {
+        if (!req.query.user_id || !req.query.meetup_id || !req.query.page) {
             jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
             return
         }
         let response = await userHandler.meetupCommentList(req.query);
+        jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
+    } catch (error) {
+        jsonResponse(res, error.code, error, null);
+    }
+});
+
+router.post('/meetup-comment', async(req, res) => {
+    try {
+        req.body.time_zone = config.time_zone
+        if(req.headers.time_zone){
+            req.body.time_zone = req.headers.time_zone
+        }
+        if (!req.body.user_id || !req.body.meetup_id || !req.body.type) {
+            jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+            return
+        }
+        if(req.body.type == 'image'){
+            if (!req.files.image) {
+                jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+                return
+            }
+        }
+        else{
+            if (!req.body.msg) {
+                jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
+                return
+            }
+        }
+        let response = await userHandler.meetupComment(req.body, req);
         jsonResponse(res, responseCodes.OK, null, await encryptDecryptHandler.encrypt(response));
     } catch (error) {
         jsonResponse(res, error.code, error, null);
