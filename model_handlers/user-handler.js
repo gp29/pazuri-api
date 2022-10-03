@@ -613,7 +613,7 @@ const joinMeetup = async(requestParam, req) => {
                 return;
             }
             if(meetup.limit == meetup.accepted.length){
-                reject(errors(labels.LBL_LIMIT_OVER[config.default_language], responseCodes.ResourceNotFound));
+                reject(errors(labels.LBL_LIMIT_OVER[config.default_language], responseCodes.Conflict));
                 return;
             }
             let accepted = meetup.accepted
