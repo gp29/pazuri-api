@@ -749,7 +749,7 @@ const meetupCommentList = async(requestParam, req) => {
                 return;
             }
             let lists = await query.selectWithAndFilter(dbConstants.dbSchema.meetup_comments, {meetup_id: requestParam.meetup_id}, { _id:0, comment_id:1, meetup_id: 1, user_id:1, type:1, msg:1, created_at:1}, {
-                created_at: -1,
+                created_at: 1,
             }, {
                 skip,
                 limit
