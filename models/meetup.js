@@ -69,6 +69,10 @@ var meetupSchema = new Schema({
         type: Array,
         default:[]
     },
+    status: {
+        type: String,
+        default:'active'
+    },
     created_at: {
         type: Date,
         default: Date.now

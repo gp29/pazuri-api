@@ -31,6 +31,7 @@ const reminder = require('./routes/reminder');
 const image = require('./routes/image');
 const friend = require('./routes/friend');
 const category = require('./routes/category');
+const meetup = require('./routes/meetup');
 
 //other configurations
 const passport = require('passport');
@@ -71,6 +72,7 @@ app.use('/api/reminder', reminder);
 app.use('/api/image', image);
 app.use('/api/friend', friend);
 app.use('/api/category', category);
+app.use('/api/meetup', meetup);
 
 app.use(upload());
 

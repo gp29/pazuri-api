@@ -505,7 +505,7 @@ const homeMeetupList = async(requestParam, req) => {
                 return;
             }
             let matchColumn = {
-                user_id:{$ne: requestParam.user_id}, type:'public'
+                user_id:{$ne: requestParam.user_id}, type:'public', status:'active'
             }
             if(requestParam.category_id && requestParam.category_id !== ''){
                 matchColumn.category_id = requestParam.category_id
