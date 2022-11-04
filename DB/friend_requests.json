@@ -1,0 +1,307 @@
+[{
+  "_id": {
+    "$oid": "62d53d8d5c025ee5b41f24ee"
+  },
+  "request_id": "FRQ165814209343",
+  "user_id": "USE165812576828",
+  "opponent_user_id": "USE165770009082",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658142093030"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658142093030"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d5a32937628ee8cc956f20"
+  },
+  "request_id": "FRQ165816810683",
+  "user_id": "USE165813908491",
+  "opponent_user_id": "USE165770009082",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658168106001"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658168106001"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d7378f62376cf7149d2a76"
+  },
+  "request_id": "FRQ165827163142",
+  "user_id": "USE165813908491",
+  "opponent_user_id": "USE165826273084",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658271631248"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658271631248"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d7a8c062376cf7149d2b1c"
+  },
+  "request_id": "FRQ165830060872",
+  "user_id": "USE165826273084",
+  "opponent_user_id": "USE165829653687",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658300608319"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658300608320"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d7a8d162376cf7149d2b3c"
+  },
+  "request_id": "FRQ1658300625102",
+  "user_id": "USE165826273084",
+  "opponent_user_id": "USE165770009082",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658300625940"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658300625940"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d8461362376cf7149d2c7d"
+  },
+  "request_id": "FRQ165834088383",
+  "user_id": "USE165813908491",
+  "opponent_user_id": "USE165829653687",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658340883383"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658340883383"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62dfb7cdd0dd315fec53cd0f"
+  },
+  "request_id": "FRQ165882874953",
+  "user_id": "USE165882845046",
+  "opponent_user_id": "USE165839480544",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658828749494"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658828749494"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343fc0cc23d6f6c67b966a"
+  },
+  "request_id": "FRQ166436857683",
+  "user_id": "USE166436822856",
+  "opponent_user_id": "USE165813908491",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368576230"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368576230"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343fc6cc23d6f6c67b967a"
+  },
+  "request_id": "FRQ166436858296",
+  "user_id": "USE166436822856",
+  "opponent_user_id": "USE1658249431107",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368582151"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368582151"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633a7dc19da0f545b7625d91"
+  },
+  "request_id": "FRQ166477766543",
+  "user_id": "USE166477752555",
+  "opponent_user_id": "USE166436822856",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664777665634"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664777665634"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633a807b9da0f545b7625f0e"
+  },
+  "request_id": "FRQ1664778363107",
+  "user_id": "USE166477752555",
+  "opponent_user_id": "USE165826273084",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664778363072"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664778363072"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633a808f9da0f545b7625f22"
+  },
+  "request_id": "FRQ166477838324",
+  "user_id": "USE166477752555",
+  "opponent_user_id": "USE165813908491",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664778383691"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664778383691"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633a80b69da0f545b7625f36"
+  },
+  "request_id": "FRQ166477842289",
+  "user_id": "USE165812576828",
+  "opponent_user_id": "USE1658249431107",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664778422351"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664778422351"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633a80ba9da0f545b7625f3e"
+  },
+  "request_id": "FRQ166477842675",
+  "user_id": "USE165812576828",
+  "opponent_user_id": "USE165839480544",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664778426023"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664778426024"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633b491bfa61f846808569ef"
+  },
+  "request_id": "FRQ166482972329",
+  "user_id": "USE166436822856",
+  "opponent_user_id": "USE165826273084",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664829723535"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664829723535"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633b55dafa61f84680856ab8"
+  },
+  "request_id": "FRQ166483298680",
+  "user_id": "USE166436822856",
+  "opponent_user_id": "USE166437093876",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664832986166"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664832986166"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633be57afa61f84680856ba3"
+  },
+  "request_id": "FRQ166486975432",
+  "user_id": "USE166477752555",
+  "opponent_user_id": "USE166451729757",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664869754763"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664869754763"
+    }
+  },
+  "__v": 0
+}]

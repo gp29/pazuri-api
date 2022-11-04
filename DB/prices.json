@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "62ce94ad7e083b5dbd21687c"
+  },
+  "price_id": "PRI165770564541",
+  "compliance_id": "COM165770455921",
+  "amount": "10",
+  "inclusive_vat": "no",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1657705645329"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1657705645329"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d6447a587571c9e82ac152"
+  },
+  "price_id": "PRI165820940238",
+  "compliance_id": "COM165820939174",
+  "amount": "12",
+  "inclusive_vat": "no",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658209402060"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658209402060"
+    }
+  },
+  "__v": 0
+}]

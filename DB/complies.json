@@ -1,0 +1,409 @@
+[{
+  "_id": {
+    "$oid": "62d6470d9f0caff14f3c3f86"
+  },
+  "comply_id": "CPL1658210061105",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE165812576828",
+  "price": "10",
+  "status": "pending",
+  "transaction_id": "Tras2344234",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-19",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658210061503"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658210061503"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d649560282bbf19ca0196a"
+  },
+  "comply_id": "CPL165821064623",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770616466",
+  "user_id": "USE165812576828",
+  "price": "10",
+  "status": "pending",
+  "transaction_id": "",
+  "paid_status": "unpaid",
+  "expiry_date": "2022-07-19",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658210646643"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658210646643"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d649d30282bbf19ca01985"
+  },
+  "comply_id": "CPL165821077122",
+  "compliance_id": "COM165820939174",
+  "region_id": "REG165770621713",
+  "user_id": "USE165812576828",
+  "price": "12",
+  "status": "pending",
+  "transaction_id": "",
+  "paid_status": "unpaid",
+  "expiry_date": "2022-07-19",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658210771150"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658210771150"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d6741996a1d6f45ba6ceb6"
+  },
+  "comply_id": "CPL165822159393",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE165812576828",
+  "price": "10",
+  "status": "pending",
+  "transaction_id": "",
+  "paid_status": "unpaid",
+  "expiry_date": "2022-07-19",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658221593337"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658221593337"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d6e15262376cf7149d274c"
+  },
+  "comply_id": "CPL165824955499",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE1658249431107",
+  "price": "10",
+  "status": "pending",
+  "transaction_id": "",
+  "paid_status": "unpaid",
+  "expiry_date": "2022-07-19",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658249554356"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658249554356"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d70af762376cf7149d2869"
+  },
+  "comply_id": "CPL165826021544",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE165813908491",
+  "price": "574",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-21",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658260215757"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658260215757"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d70f9e62376cf7149d28ab"
+  },
+  "comply_id": "CPL165826140698",
+  "compliance_id": "COM165820939174",
+  "region_id": "REG165770616466",
+  "user_id": "USE165813908491",
+  "price": "48",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-29",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658261406332"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658261406332"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d7100b62376cf7149d28be"
+  },
+  "comply_id": "CPL165826151592",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770616466",
+  "user_id": "USE165813908491",
+  "price": "21",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-20",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658261515917"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658261515917"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d7106b62376cf7149d28d7"
+  },
+  "comply_id": "CPL165826161175",
+  "compliance_id": "COM165820939174",
+  "region_id": "REG165770616466",
+  "user_id": "USE165813908491",
+  "price": "15",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-29",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658261611260"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658261611260"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d7109f62376cf7149d28f6"
+  },
+  "comply_id": "CPL165826166357",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770616466",
+  "user_id": "USE165813908491",
+  "price": "22",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-26",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658261663390"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658261663390"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d710f062376cf7149d2913"
+  },
+  "comply_id": "CPL165826174453",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE165813908491",
+  "price": "2555",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-25",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658261744296"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658261744296"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d7112662376cf7149d2922"
+  },
+  "comply_id": "CPL165826179854",
+  "compliance_id": "COM165820939174",
+  "region_id": "REG165770616466",
+  "user_id": "USE165813908491",
+  "price": "5",
+  "status": "pending",
+  "transaction_id": "",
+  "paid_status": "unpaid",
+  "expiry_date": "2022-07-28",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658261798086"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658261798086"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d79a8262376cf7149d2ae9"
+  },
+  "comply_id": "CPL165829696234",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE165829653687",
+  "price": "100",
+  "status": "pending",
+  "transaction_id": "",
+  "paid_status": "unpaid",
+  "expiry_date": "2022-07-20",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658296962247"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658296962247"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d79aa862376cf7149d2af3"
+  },
+  "comply_id": "CPL165829700070",
+  "compliance_id": "COM165820939174",
+  "region_id": "REG165770616466",
+  "user_id": "USE165829653687",
+  "price": "300",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-20",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658297000056"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658297000056"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d83f5862376cf7149d2ba8"
+  },
+  "comply_id": "CPL165833916059",
+  "compliance_id": "COM165820939174",
+  "region_id": "REG165770621713",
+  "user_id": "USE165813908491",
+  "price": "12",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-29",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658339160100"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658339160100"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62dfb66bd0dd315fec53cc8b"
+  },
+  "comply_id": "CPL165882839594",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE165839480544",
+  "price": "10",
+  "status": "pending",
+  "transaction_id": "437456767",
+  "paid_status": "paid",
+  "expiry_date": "2022-07-30",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658828395617"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658828395617"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62dfb6f8d0dd315fec53ccea"
+  },
+  "comply_id": "CPL165882853656",
+  "compliance_id": "COM165770455921",
+  "region_id": "REG165770621713",
+  "user_id": "USE165882845046",
+  "price": "10",
+  "status": "pending",
+  "transaction_id": "",
+  "paid_status": "unpaid",
+  "expiry_date": "2022-07-28",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658828536108"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658828536108"
+    }
+  },
+  "__v": 0
+}]

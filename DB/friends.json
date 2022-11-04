@@ -1,0 +1,397 @@
+[{
+  "_id": {
+    "$oid": "62d684a798105ff6399af1fb"
+  },
+  "friend_id": "FRI1658225831108",
+  "user_id": "USE165812576828",
+  "opponent_user_id": "USE165813908491",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658225831560"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658225831560"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d684a898105ff6399af1fe"
+  },
+  "friend_id": "FRI165822583299",
+  "user_id": "USE165813908491",
+  "opponent_user_id": "USE165812576828",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658225832179"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658225832179"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d6e10162376cf7149d2736"
+  },
+  "friend_id": "FRI165824947359",
+  "user_id": "USE1658249431107",
+  "opponent_user_id": "USE165813908491",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658249473623"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658249473623"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d6e10262376cf7149d273a"
+  },
+  "friend_id": "FRI165824947484",
+  "user_id": "USE165813908491",
+  "opponent_user_id": "USE1658249431107",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658249474243"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658249474243"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d8433e62376cf7149d2c6d"
+  },
+  "friend_id": "FRI165834015884",
+  "user_id": "USE165826273084",
+  "opponent_user_id": "USE165813908491",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658340158890"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658340158890"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d8433f62376cf7149d2c70"
+  },
+  "friend_id": "FRI165834015944",
+  "user_id": "USE165813908491",
+  "opponent_user_id": "USE165826273084",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658340159509"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658340159509"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d8e98362376cf7149d2d08"
+  },
+  "friend_id": "FRI165838272330",
+  "user_id": "USE165829653687",
+  "opponent_user_id": "USE1658249431107",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658382723664"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658382723665"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d8e98462376cf7149d2d0b"
+  },
+  "friend_id": "FRI1658382724102",
+  "user_id": "USE1658249431107",
+  "opponent_user_id": "USE165829653687",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658382724295"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658382724295"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d8e98562376cf7149d2d13"
+  },
+  "friend_id": "FRI165838272597",
+  "user_id": "USE165826273084",
+  "opponent_user_id": "USE1658249431107",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658382725760"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658382725760"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d8e98662376cf7149d2d16"
+  },
+  "friend_id": "FRI165838272633",
+  "user_id": "USE1658249431107",
+  "opponent_user_id": "USE165826273084",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658382726371"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658382726371"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62dfb9a9d0dd315fec53cd54"
+  },
+  "friend_id": "FRI165882922550",
+  "user_id": "USE165839480544",
+  "opponent_user_id": "USE165882845046",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658829225581"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658829225581"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62dfb9aad0dd315fec53cd57"
+  },
+  "friend_id": "FRI165882922676",
+  "user_id": "USE165882845046",
+  "opponent_user_id": "USE165839480544",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658829226208"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658829226208"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343cd25432d8f5801c6903"
+  },
+  "friend_id": "FRI1664367826101",
+  "user_id": "USE165812576828",
+  "opponent_user_id": "USE166434639125",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664367826439"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664367826439"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343cd35432d8f5801c6907"
+  },
+  "friend_id": "FRI166436782743",
+  "user_id": "USE166434639125",
+  "opponent_user_id": "USE165812576828",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664367827068"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664367827068"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343fd6cc23d6f6c67b9689"
+  },
+  "friend_id": "FRI166436859884",
+  "user_id": "USE165812576828",
+  "opponent_user_id": "USE166436822856",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368598623"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368598623"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343fd7cc23d6f6c67b968c"
+  },
+  "friend_id": "FRI166436859927",
+  "user_id": "USE166436822856",
+  "opponent_user_id": "USE165812576828",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368599252"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368599252"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343fefcc23d6f6c67b96b6"
+  },
+  "friend_id": "FRI166436862341",
+  "user_id": "USE166434639125",
+  "opponent_user_id": "USE166436822856",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368623388"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368623388"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63343ff0cc23d6f6c67b96b9"
+  },
+  "friend_id": "FRI166436862445",
+  "user_id": "USE166436822856",
+  "opponent_user_id": "USE166434639125",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368624003"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368624003"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633be5cefa61f84680856beb"
+  },
+  "friend_id": "FRI166486983817",
+  "user_id": "USE166477752555",
+  "opponent_user_id": "USE166434639125",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664869838509"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664869838509"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "633be5cffa61f84680856bee"
+  },
+  "friend_id": "FRI166486983979",
+  "user_id": "USE166434639125",
+  "opponent_user_id": "USE166477752555",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664869839136"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664869839136"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63462d56f528c8798d220a12"
+  },
+  "friend_id": "FRI1665543510108",
+  "user_id": "USE165826273084",
+  "opponent_user_id": "USE165812576828",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1665543510620"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1665543510620"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63462d57f528c8798d220a15"
+  },
+  "friend_id": "FRI166554351160",
+  "user_id": "USE165812576828",
+  "opponent_user_id": "USE165826273084",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1665543511253"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1665543511253"
+    }
+  },
+  "__v": 0
+}]

@@ -1,0 +1,300 @@
+[{
+  "_id": {
+    "$oid": "6333e88beff857ec0b3f0724"
+  },
+  "meetup_id": "MET166434625157",
+  "user_id": "USE165812576828",
+  "category_id": "CAT166427449467",
+  "type": "public",
+  "limit": 25,
+  "amount": 12,
+  "friend_ids": [],
+  "title": "Holiday",
+  "description": "Sdsadasd add",
+  "date": "2022-09-28",
+  "time": "11:53 AM",
+  "duration": "1 H",
+  "location": "Asdasdsd",
+  "photo": "166434625130971886.jpg",
+  "accepted": [
+    "USE166434639125",
+    "USE166436822856",
+    "USE165882845046"
+  ],
+  "rejected": [],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664346251289"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664346251289"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+},{
+  "_id": {
+    "$oid": "63343ee4cc23d6f6c67b9636"
+  },
+  "meetup_id": "MET166436835644",
+  "user_id": "USE166436822856",
+  "category_id": "CAT166427449467",
+  "type": "public",
+  "limit": 32,
+  "amount": 12,
+  "friend_ids": [],
+  "title": "My Party",
+  "description": "Let’s in party to enjoy our life’s few moments \nJoin us on party",
+  "date": "2022-09-28",
+  "time": "06:02 PM",
+  "duration": "1 H",
+  "location": "Ahmedabas",
+  "photo": "166436835642427866.jpg",
+  "accepted": [
+    "USE165839480544",
+    "USE166437093876",
+    "USE166434639125",
+    "USE165812576828"
+  ],
+  "rejected": [],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368356790"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368356790"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+},{
+  "_id": {
+    "$oid": "63344059cc23d6f6c67b96c5"
+  },
+  "meetup_id": "MET166436872980",
+  "user_id": "USE166436822856",
+  "category_id": "CAT166427449467",
+  "type": "private",
+  "limit": 0,
+  "amount": 0,
+  "friend_ids": [
+    "USE166434639125"
+  ],
+  "title": "Pricate Meetup Test",
+  "description": "Bans and sbzbsnsbsbshb",
+  "date": "2022-09-28",
+  "time": "06:08 PM",
+  "duration": "1h",
+  "location": "Ahnsbsbsh",
+  "photo": "166436872949019789.jpg",
+  "accepted": [],
+  "rejected": [
+    "USE165812576828"
+  ],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664368729738"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664368729738"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+},{
+  "_id": {
+    "$oid": "63344858cc23d6f6c67b9771"
+  },
+  "meetup_id": "MET166437077618",
+  "user_id": "USE165839480544",
+  "category_id": "CAT166427450967",
+  "type": "public",
+  "limit": 17,
+  "amount": 0,
+  "friend_ids": [],
+  "title": "Business Meetip",
+  "description": "Discussing on the importance of technology in business ",
+  "date": "2022-09-30",
+  "time": "04:11 PM",
+  "duration": "1h ",
+  "location": "Golden Fork ",
+  "photo": "166437077661482234.jpg",
+  "accepted": [
+    "USE166437093876",
+    "USE166451729757",
+    "USE165882845046",
+    "USE165812576828",
+    "USE166436822856"
+  ],
+  "rejected": [],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664370776863"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664370776863"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+},{
+  "_id": {
+    "$oid": "63344e59cc23d6f6c67b9828"
+  },
+  "meetup_id": "MET166437231370",
+  "user_id": "USE166437214735",
+  "category_id": "CAT166437165728",
+  "type": "public",
+  "limit": 52,
+  "amount": 10000,
+  "friend_ids": [],
+  "title": "House Party",
+  "description": "Let’s join up at Elements tonight And have some fun. Ladies Free ",
+  "date": "2022-12-06",
+  "time": "04:38 PM",
+  "duration": "5h",
+  "location": "Elements Club House ",
+  "photo": "166437231371092726.jpg",
+  "accepted": [
+    "USE166436822856",
+    "USE165812576828"
+  ],
+  "rejected": [],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664372313603"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664372313603"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+},{
+  "_id": {
+    "$oid": "63345199cc23d6f6c67b98bc"
+  },
+  "meetup_id": "MET166437314599",
+  "user_id": "USE166437302337",
+  "category_id": "CAT166437165728",
+  "type": "public",
+  "limit": 55,
+  "amount": 0,
+  "friend_ids": [],
+  "title": "Soccer Match : England Vs Belgium ",
+  "description": "Hello guys, let’s catch up at my home to watch this great match. Food and drinks will be available ",
+  "date": "2022-10-28",
+  "time": "04:51 PM",
+  "duration": "2h",
+  "location": "Kunduchi",
+  "photo": "166437314515735643.jpg",
+  "accepted": [
+    "USE166436822856",
+    "USE166434639125",
+    "USE165882845046",
+    "USE165839480544",
+    "USE165812576828"
+  ],
+  "rejected": [],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664373145925"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664373145925"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+},{
+  "_id": {
+    "$oid": "633683d90f65c50a73a308ff"
+  },
+  "meetup_id": "MET166451708157",
+  "user_id": "USE166437214735",
+  "category_id": "CAT166427449467",
+  "type": "public",
+  "limit": 5007,
+  "amount": 10000,
+  "friend_ids": [],
+  "title": "Overnight Prayer Service ",
+  "description": "“Akawajia wale wanafunzi” akawakuta wamelala, akakwambia petro, *je! Hamkuweza kukesha* pamoja nami hata saa moja?” - Mathayo 26:40",
+  "date": "2022-10-29",
+  "time": "08:50 AM",
+  "duration": "2H",
+  "location": "TAG VICTORY CHRISTIAN CENTRE",
+  "photo": "166451708125618484.jpg",
+  "accepted": [
+    "USE166451729757",
+    "USE166436822856",
+    "USE166477752555",
+    "USE166434639125",
+    "USE165882845046",
+    "USE165839480544",
+    "USE165812576828"
+  ],
+  "rejected": [],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664517081179"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664517081179"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+},{
+  "_id": {
+    "$oid": "633a7f089da0f545b7625eac"
+  },
+  "meetup_id": "MET166477799247",
+  "user_id": "USE166477752555",
+  "category_id": "CAT166427450967",
+  "type": "public",
+  "limit": 8,
+  "amount": 0,
+  "friend_ids": [],
+  "title": "Weekend",
+  "description": "bzbzhzhz",
+  "date": "2022-10-03",
+  "time": "11:49:00",
+  "duration": "1 H",
+  "location": "Ahmedabad ",
+  "photo": "166477799232760722.jpg",
+  "accepted": [
+    "USE165812576828",
+    "USE166434639125",
+    "USE166434639125",
+    "USE166451729757",
+    "USE166436822856",
+    "USE165882845046"
+  ],
+  "rejected": [],
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664777992781"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664777992781"
+    }
+  },
+  "__v": 0,
+  "status": "active"
+}]

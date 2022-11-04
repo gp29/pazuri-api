@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "62ce87f933bae94ba695aaee"
+  },
+  "authority_id": "AUT165770239375",
+  "name": "Authority",
+  "contact_person": "GP",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1657702393451"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1657702393451"
+    }
+  },
+  "__v": 0
+}]

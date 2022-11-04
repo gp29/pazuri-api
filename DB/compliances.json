@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "62ce906ff860f95330c29d3f"
+  },
+  "compliance_id": "COM165770455921",
+  "authority_id": "AUT165770239375",
+  "name": "Driving License",
+  "description": "Desc",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1657705654566"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1657705654566"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62d6446f587571c9e82ac14a"
+  },
+  "compliance_id": "COM165820939174",
+  "authority_id": "AUT165770239375",
+  "name": "Election Card",
+  "description": "Election Card",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1658209391210"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1658209391210"
+    }
+  },
+  "__v": 0
+}]

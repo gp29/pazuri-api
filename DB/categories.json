@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "6332d03e442f9c0f39da520c"
+  },
+  "category_id": "CAT166427449467",
+  "title": "Religion",
+  "status": "active",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664274494271"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664274494271"
+    }
+  },
+  "__v": 0,
+  "image": "166437120661716106.png"
+},{
+  "_id": {
+    "$oid": "6332d04d442f9c0f39da5214"
+  },
+  "category_id": "CAT166427450967",
+  "title": "Business",
+  "status": "active",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664274509467"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664274509467"
+    }
+  },
+  "__v": 0,
+  "image": "166437057012504985.png"
+},{
+  "_id": {
+    "$oid": "63344bc9cc23d6f6c67b97f1"
+  },
+  "category_id": "CAT166437165728",
+  "title": "Fun",
+  "status": "active",
+  "image": "166437165726814102.png",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664371657720"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664371657720"
+    }
+  },
+  "__v": 0
+}]

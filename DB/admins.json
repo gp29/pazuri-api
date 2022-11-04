@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "62c90c04c547c72967dbec20"
+  },
+  "admin_id": "ADM161470646934",
+  "name": "victor",
+  "email": "admin@pazuri.com",
+  "password": "78bf75b64694",
+  "status": "active",
+  "mobile": "0743321000"
+},{
+  "_id": {
+    "$oid": "633a92b4fa61f84680856812"
+  },
+  "admin_id": "ADM166478302839",
+  "name": "Gaurav",
+  "email": "gp@gmail.com",
+  "mobile": "07041077741",
+  "password": "78bf75b64694",
+  "status": "active",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1664783028733"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1664783028734"
+    }
+  },
+  "__v": 0
+}]

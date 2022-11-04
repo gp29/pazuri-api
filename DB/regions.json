@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "62ce96b4915b8b621e5814c1"
+  },
+  "region_id": "REG165770616466",
+  "name": "Tabora",
+  "status": "active",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1657706164094"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1657706164095"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "62ce96e9915b8b621e5814e8"
+  },
+  "region_id": "REG165770621713",
+  "name": "Kagera",
+  "status": "active",
+  "created_at": {
+    "$date": {
+      "$numberLong": "1657706217421"
+    }
+  },
+  "updated_at": {
+    "$date": {
+      "$numberLong": "1657706217421"
+    }
+  },
+  "__v": 0
+}]
